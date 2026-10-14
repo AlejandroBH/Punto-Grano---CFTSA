@@ -6,7 +6,7 @@ import modelos.Producto;
 
 public class ModificarProducto extends JFrame {
 
-    private ProductoControlador ProductoControlador;
+    private ProductoControlador productoControlador;
 
     private String[] categorias = {"Productos", "Accesorios"};
 
@@ -22,7 +22,7 @@ public class ModificarProducto extends JFrame {
     private JButton btnModificar;
 
     public ModificarProducto(ProductoControlador productoControlador, Producto producto) {
-        this.ProductoControlador = ProductoControlador;
+        this.productoControlador = productoControlador;
 
         setTitle("Modificar Producto");
         setSize(500, 350);

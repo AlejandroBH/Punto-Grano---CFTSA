@@ -33,7 +33,7 @@ public class VerVentas extends JInternalFrame {
     public VerVentas(Usuario usuarioLogeado, PedidoControlador pedidoControlador) {
         this.pedidoControlador = pedidoControlador;
 
-        setTitle("Ventas Registrados");
+        setTitle("Ventas Registradas");
         setSize(650, 450);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

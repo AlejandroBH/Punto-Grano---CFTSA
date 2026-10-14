@@ -3,33 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/controladores/ClienteControlador.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/controladores/PedidoControlador.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/controladores/ProductoControlador.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/controladores/RecompensaControlador.java</file>
             <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/main/PuntoGrano.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Administrador.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Cliente.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Operador.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Pedido.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Producto.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Recompensa.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/TarjetaFidelidad.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/modelos/Usuario.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/CanjearPuntos.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/ModificarCliente.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/ModificarProducto.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/ModificarRecompensa.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/NuevaRecompensa.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/NuevaVenta.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/NuevoCliente.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/NuevoProducto.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VerClientes.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VerProductos.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VerRecompensas.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VerVentas.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VistaLogin.java</file>
-            <file>file:/D:/Alejandro/Documentos/NetBeansProjects/PuntoGrano/src/vistas/VistaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
