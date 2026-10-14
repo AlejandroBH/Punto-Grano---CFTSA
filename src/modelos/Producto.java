@@ -55,6 +55,6 @@ public class Producto {
     }
 
     public void mostrarDetalleProducto() {
-        System.out.println("TODO: mostrarDetalleProducto");
+        System.out.println("Mostrando detalles del pedido");
     }
 }
