@@ -84,6 +84,11 @@ public class NuevaVenta extends JFrame {
         btnAgregar.addActionListener(e -> {
             int indice = comProducto.getSelectedIndex();
 
+            if (indice == -1 || comProducto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "No existen productos en el catalogo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Producto productoSeleccionado = productoControlador.obtenerProducto(indice);
             carritoControlador.agregarCarrito(productoSeleccionado);
             actualizarCarrito();

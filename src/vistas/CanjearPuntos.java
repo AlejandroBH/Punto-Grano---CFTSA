@@ -59,6 +59,11 @@ public class CanjearPuntos extends JFrame {
             String rut = txtRut.getText();
             int indice = comRecompensa.getSelectedIndex();
 
+            if (indice == -1 || comRecompensa.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "No existen productos en el catalogo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Cliente clienteEncontrado = clienteControlador.obtenerClientePorRut(rut);
             Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(indice);
 

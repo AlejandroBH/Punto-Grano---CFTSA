@@ -62,6 +62,11 @@ public class NuevaRecompensa extends JFrame {
         btnRegistrar.setBounds(150, 220, 230, 30);
 
         btnRegistrar.addActionListener(e -> {
+            if (comPremio.getSelectedIndex() == -1 || comPremio.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "No existen productos en el catalogo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             String premio = comPremio.getSelectedItem().toString();
             String costoPuntosTexto = txtCostoPuntos.getText();
             Boolean disponible = cheDisponible.isSelected();
