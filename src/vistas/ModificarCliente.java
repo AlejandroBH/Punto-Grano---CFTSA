@@ -19,7 +19,7 @@ public class ModificarCliente extends JFrame {
         this.clienteControlador = clienteControlador;
 
         setTitle("Modificar Cliente");
-        setSize(500, 350);
+        setSize(500, 320);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

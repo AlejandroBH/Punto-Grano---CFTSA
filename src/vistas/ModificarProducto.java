@@ -25,7 +25,7 @@ public class ModificarProducto extends JFrame {
         this.productoControlador = productoControlador;
 
         setTitle("Modificar Producto");
-        setSize(500, 350);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
