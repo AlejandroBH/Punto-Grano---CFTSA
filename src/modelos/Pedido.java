@@ -65,7 +65,8 @@ public class Pedido {
         int totalCompra = calcularTotal();
         this.setEstado("Listo para retiro");
         if (totalCompra >= 10000) {
-            this.cliente.getTarjeta().actualizarProgreso(50);
+            int puntosGanados = (totalCompra / 10000) * 50; // fix, ahora suma 50 por cada vez que totalCompra > 10000 (ej: si supera 20000 son 100 puntos)
+            this.cliente.getTarjeta().actualizarProgreso(puntosGanados);
         }
     }
 }
