@@ -67,8 +67,8 @@ public class VistaPrincipal extends JFrame {
         barraMenu = new JMenuBar();
 
         // Menu clientes
-        //iconoNuevoCliente = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_nuevo-cliente.png"));
-        //iconoVerClientes = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_ver-clientes.png"));
+        iconoNuevoCliente = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nuevo-cliente.png"));
+        iconoVerClientes = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-clientes.png"));
         menuClientes = new JMenu("Clientes");
         itemNuevoCliente = new JMenuItem("Nuevo Cliente");
         itemVerClientes = new JMenuItem("Ver Clientes");
@@ -89,8 +89,8 @@ public class VistaPrincipal extends JFrame {
         });
 
         // Menu productos
-        // iconoNuevoProducto = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_nuevo-producto.png"));
-        //iconoVerProductos = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_ver-productos.png"));
+        iconoNuevoProducto = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nuevo-producto.png"));
+        iconoVerProductos = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-productos.png"));
         menuProductos = new JMenu("Productos");
         itemNuevoProducto = new JMenuItem("Nuevo Producto");
         itemVerProductos = new JMenuItem("Ver Productos");
@@ -116,8 +116,8 @@ public class VistaPrincipal extends JFrame {
         });
 
         // Menu recompensa
-        // iconoNuevaRecompensa = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_nueva-recompensa.png"));
-        // iconoVerRecompensas = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_ver-recompensas.png"));
+        iconoNuevaRecompensa = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nueva-recompensa.png"));
+        iconoVerRecompensas = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-recompensas.png"));
         menuRecompensa = new JMenu("Recompensa");
         itemNuevaRecompensa = new JMenuItem("Nueva Recompensa");
         itemVerRecompensas = new JMenuItem("Ver Recompensas");
@@ -143,9 +143,9 @@ public class VistaPrincipal extends JFrame {
         });
 
         // Menu operaciones
-        // iconoNuevaVenta = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_nueva-venta.png"));
-        // iconoProcesarVentas = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_procesar-ventas.png"));
-        // iconoCanjearPuntos = new ImageIcon(getClass().getResource("/puntograno.imagenes/icono_canjear-puntos.png"));
+        iconoNuevaVenta = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nueva-venta.png"));
+        iconoProcesarVentas = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_procesar-ventas.png"));
+        iconoCanjearPuntos = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_canjear-puntos.png"));
         menuOperaciones = new JMenu("Operaciones");
         itemNuevaVenta = new JMenuItem("Nueva Venta");
         itemProcesarVentas = new JMenuItem("Procesar Ventas");

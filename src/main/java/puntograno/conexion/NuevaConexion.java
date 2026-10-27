@@ -14,5 +14,4 @@ public class NuevaConexion {
             e.printStackTrace();
         }
     }
-
 }
