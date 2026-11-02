@@ -17,11 +17,9 @@ public class NuevaVenta extends JFrame {
     private ProductoControlador productoControlador;
     private ClienteControlador clienteControlador;
 
-    private ArrayList<String> productos;
-
     private JPanel panel;
-    private JLabel lblRut;
-    private JTextField txtRut;
+    private JLabel lblCliente;
+    private JComboBox comCliente;
     private JLabel lblProducto;
     private JComboBox comProducto;
     private JButton btnAgregar;
@@ -37,6 +35,12 @@ public class NuevaVenta extends JFrame {
             if (producto.isDisponible()) {
                 comProducto.addItem(producto.getNombre());
             }
+        }
+    }
+
+    private void cargarClientes() {
+        for (Cliente cliente : clienteControlador.getClientes()) {
+            comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
         }
     }
 
@@ -66,8 +70,9 @@ public class NuevaVenta extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        lblRut = new JLabel("Rut Cliente");
-        txtRut = new JTextField();
+        lblCliente = new JLabel("Cliente");
+        comCliente = new JComboBox<>();
+        cargarClientes();
         lblProducto = new JLabel("Producto");
         comProducto = new JComboBox<>();
         cargarProductos();
@@ -103,14 +108,11 @@ public class NuevaVenta extends JFrame {
         });
 
         btnRegistrar.addActionListener(e -> {
-            String rut = txtRut.getText();
-            Cliente clienteEncontrado = clienteControlador.obtenerClientePorRut(rut);
+            int clienteIndice = comCliente.getSelectedIndex();
+            Cliente clienteEncontrado = clienteControlador.obtenerCliente(clienteIndice);
 
-            if (rut.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (clienteEncontrado == null) {
-                JOptionPane.showMessageDialog(this, "El cliente no se encuentra registrado", "Error", JOptionPane.ERROR_MESSAGE);
+            if (clienteIndice == -1 || comCliente.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "No existen clientes registrados", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -122,8 +124,8 @@ public class NuevaVenta extends JFrame {
             setVisible(false);
         });
 
-        lblRut.setBounds(50, 40, 80, 30);
-        txtRut.setBounds(140, 40, 200, 30);
+        lblCliente.setBounds(50, 40, 80, 30);
+        comCliente.setBounds(140, 40, 200, 30);
         lblProducto.setBounds(50, 90, 80, 30);
         comProducto.setBounds(140, 90, 200, 30);
         btnAgregar.setBounds(360, 90, 150, 30);
@@ -132,8 +134,8 @@ public class NuevaVenta extends JFrame {
         txtTotal.setBounds(140, 360, 200, 30);
         btnRegistrar.setBounds(140, 415, 200, 35);
 
-        panel.add(lblRut);
-        panel.add(txtRut);
+        panel.add(lblCliente);
+        panel.add(comCliente);
         panel.add(lblProducto);
         panel.add(comProducto);
         panel.add(btnAgregar);

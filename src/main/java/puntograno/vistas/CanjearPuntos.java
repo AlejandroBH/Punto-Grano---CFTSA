@@ -12,11 +12,9 @@ public class CanjearPuntos extends JFrame {
     private RecompensaControlador recompensaControlador;
     private ClienteControlador clienteControlador;
 
-    private ArrayList<String> recompensas;
-
     private JPanel panel;
-    private JLabel lblRut;
-    private JTextField txtRut;
+    private JLabel lblCliente;
+    private JComboBox comCliente;
     private JLabel lblRecompensa;
     private JComboBox comRecompensa;
     private JButton btnCanjear;
@@ -26,6 +24,12 @@ public class CanjearPuntos extends JFrame {
             if (recompensa.isDisponible()) {
                 comRecompensa.addItem(recompensa.getPremio() + " (" + recompensa.getCostoPuntos() + " puntos)");
             }
+        }
+    }
+
+    private void cargarClientes() {
+        for (Cliente cliente : clienteControlador.getClientes()) {
+            comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
         }
     }
 
@@ -42,38 +46,38 @@ public class CanjearPuntos extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        lblRut = new JLabel("Rut Cliente");
-        txtRut = new JTextField();
+        lblCliente = new JLabel("Cliente");
+        comCliente = new JComboBox<>();
+        cargarClientes();
         lblRecompensa = new JLabel("Recompensa");
         comRecompensa = new JComboBox<>();
         cargarRecompensas();
         btnCanjear = new JButton("Canjear");
 
-        lblRut.setBounds(70, 50, 100, 30);
-        txtRut.setBounds(180, 50, 220, 30);
+        lblCliente.setBounds(70, 50, 100, 30);
+        comCliente.setBounds(180, 50, 220, 30);
         lblRecompensa.setBounds(70, 100, 100, 30);
         comRecompensa.setBounds(180, 100, 220, 30);
         btnCanjear.setBounds(180, 150, 220, 35);
 
         btnCanjear.addActionListener(e -> {
-            String rut = txtRut.getText();
-            int indice = comRecompensa.getSelectedIndex();
+            int clienteIndice = comCliente.getSelectedIndex();
+            int recompensaIndice = comRecompensa.getSelectedIndex();
 
-            if (indice == -1 || comRecompensa.getSelectedItem() == null) {
+            if (recompensaIndice == -1 || comRecompensa.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "No existen productos en el catalogo", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Cliente clienteEncontrado = clienteControlador.obtenerClientePorRut(rut);
-            Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(indice);
+            if (clienteIndice == -1 || comCliente.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "No existen clientes registrados", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            if (rut.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (clienteEncontrado == null) {
-                JOptionPane.showMessageDialog(this, "El cliente no se encuentra registrado", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (clienteEncontrado.getTarjeta().getPuntosAcumulados() < recompensaSeleccionada.getCostoPuntos()) {
+            Cliente clienteEncontrado = clienteControlador.obtenerCliente(clienteIndice);
+            Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(recompensaIndice);
+
+            if (clienteEncontrado.getTarjeta().getPuntosAcumulados() < recompensaSeleccionada.getCostoPuntos()) {
                 JOptionPane.showMessageDialog(this, "El cliente no tiene puntos suficientes", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -83,8 +87,8 @@ public class CanjearPuntos extends JFrame {
             setVisible(false);
         });
 
-        panel.add(lblRut);
-        panel.add(txtRut);
+        panel.add(lblCliente);
+        panel.add(comCliente);
         panel.add(lblRecompensa);
         panel.add(comRecompensa);
         panel.add(btnCanjear);
