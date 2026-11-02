@@ -25,6 +25,7 @@ public class VerClientes extends JInternalFrame {
                 cliente.getNombre(),
                 cliente.getRut(),
                 cliente.getTelefono(),
+                cliente.getEmail(),
                 cliente.getTarjeta().getNivel(),
                 cliente.getTarjeta().getPuntosAcumulados()
             });
@@ -50,6 +51,7 @@ public class VerClientes extends JInternalFrame {
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("RUT");
         modeloTabla.addColumn("Telefono");
+        modeloTabla.addColumn("Email");
         modeloTabla.addColumn("Nivel");
         modeloTabla.addColumn("Puntos");
         tablaClientes = new JTable(modeloTabla);

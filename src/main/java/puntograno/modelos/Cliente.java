@@ -4,8 +4,8 @@ public class Cliente extends Usuario {
 
     private TarjetaFidelidad tarjeta; // Cliente - TarjetaFidelidad 1:1 
 
-    public Cliente(String rut, String nombre, String telefono) {
-        super(rut, nombre, telefono);
+    public Cliente(String rut, String nombre, String telefono, String email) {
+        super(rut, nombre, telefono, email);
         this.tarjeta = new TarjetaFidelidad();
     }
 

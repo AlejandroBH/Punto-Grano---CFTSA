@@ -63,7 +63,7 @@ public class VistaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        escritorio = new JDesktopPane();
+        escritorio = new PanelConFondo();
         barraMenu = new JMenuBar();
 
         // Menu clientes

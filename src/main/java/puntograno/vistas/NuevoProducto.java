@@ -15,6 +15,8 @@ public class NuevoProducto extends JFrame {
     private JTextField txtNombre;
     private JLabel lblPrecio;
     private JTextField txtPrecio;
+    private JLabel lblStock;
+    private JTextField txtStock;
     private JLabel lblCategoria;
     private JComboBox comCategoria;
     private JLabel lblDisponible;
@@ -25,7 +27,7 @@ public class NuevoProducto extends JFrame {
         this.productoControlador = productoControlador;
 
         setTitle("Registrar Nuevo Producto");
-        setSize(500, 400);
+        setSize(500, 450);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -37,6 +39,8 @@ public class NuevoProducto extends JFrame {
         txtNombre = new JTextField(10);
         lblPrecio = new JLabel("Precio");
         txtPrecio = new JTextField();
+        lblStock = new JLabel("Stock");
+        txtStock = new JTextField();
         lblCategoria = new JLabel("Categoria");
         comCategoria = new JComboBox<>(categorias);
         lblDisponible = new JLabel("Disponible");
@@ -47,39 +51,45 @@ public class NuevoProducto extends JFrame {
         txtNombre.setBounds(150, 70, 230, 30);
         lblPrecio.setBounds(70, 120, 80, 30);
         txtPrecio.setBounds(150, 120, 230, 30);
-        lblCategoria.setBounds(70, 170, 80, 30);
-        comCategoria.setBounds(150, 170, 230, 30);
-        lblDisponible.setBounds(70, 220, 80, 30);
-        cheDisponible.setBounds(150, 220, 230, 30);
-        btnRegistrar.setBounds(150, 270, 230, 30);
+        lblStock.setBounds(70, 170, 80, 30);
+        txtStock.setBounds(150, 170, 230, 30);
+        lblCategoria.setBounds(70, 220, 80, 30);
+        comCategoria.setBounds(150, 220, 230, 30);
+        lblDisponible.setBounds(70, 270, 80, 30);
+        cheDisponible.setBounds(150, 270, 230, 30);
+        btnRegistrar.setBounds(150, 320, 230, 30);
 
         btnRegistrar.addActionListener(e -> {
 
             String nombre = txtNombre.getText();
             String precioTexto = txtPrecio.getText();
+            String stockTexto = txtStock.getText();
+
             String categoria = comCategoria.getSelectedItem().toString();
             Boolean disponible = cheDisponible.isSelected();
 
-            if (nombre.isEmpty() || precioTexto.isEmpty()) {
+            if (nombre.isEmpty() || precioTexto.isEmpty() || stockTexto.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             int precio;
+            int stock;
 
             try {
                 precio = Integer.parseInt(precioTexto);
+                stock = Integer.parseInt(stockTexto);
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser un numero", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El precio o stock deben ser numeros", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (precio <= 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a cero", "Error", JOptionPane.ERROR_MESSAGE);
+            if (precio <= 0 || stock <= 0) {
+                JOptionPane.showMessageDialog(this, "El precio o stock deben ser mayores a cero", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Producto producto = new Producto(nombre, categoria, precio, disponible);
+            Producto producto = new Producto(nombre, categoria, precio, stock, disponible);
             productoControlador.registrarProducto(producto);
             JOptionPane.showMessageDialog(this, "Producto " + producto.getNombre() + " registrado correctamente");
             setVisible(false);
@@ -89,6 +99,8 @@ public class NuevoProducto extends JFrame {
         panel.add(txtNombre);
         panel.add(lblPrecio);
         panel.add(txtPrecio);
+        panel.add(lblStock);
+        panel.add(txtStock);
         panel.add(lblCategoria);
         panel.add(comCategoria);
         panel.add(lblDisponible);

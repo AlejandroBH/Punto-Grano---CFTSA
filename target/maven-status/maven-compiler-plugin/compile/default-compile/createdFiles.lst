@@ -25,5 +25,6 @@ puntograno\modelos\Cliente.class
 puntograno\controladores\ClienteControlador.class
 puntograno\vistas\CanjearPuntos.class
 puntograno\controladores\PedidoControlador.class
+puntograno\vistas\PanelConFondo.class
 puntograno\conexion\NuevaConexion.class
 puntograno\vistas\VerVentas.class

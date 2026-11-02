@@ -27,6 +27,7 @@ public class VerProductos extends JInternalFrame {
                 producto.getNombre(),
                 producto.getCategoria(),
                 "$ " + producto.getPrecio(),
+                producto.getStock(),
                 disponible
             });
         }
@@ -51,6 +52,7 @@ public class VerProductos extends JInternalFrame {
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Categoria");
         modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Stock");
         modeloTabla.addColumn("Disponible");
         tablaProductos = new JTable(modeloTabla);
 

@@ -40,8 +40,8 @@ public class VistaLogin extends JFrame {
 
         // Simulacion de login basico con roles
         btnIngresar.addActionListener(e -> {
-            Operador operador = new Operador("12.345.678-9", "Operador", "+56987654321", "Op123");
-            Administrador administrador = new Administrador("13.456.789-0", "Administrador", "+56945628523", "Ad123");
+            Operador operador = new Operador("12.345.678-9", "Operador", "+56987654321", "operador@email.com", "Op123");
+            Administrador administrador = new Administrador("13.456.789-0", "Administrador", "+56945628523", "administrador@email.com", "Ad123");
 
             Boolean loginCorrecto = false;
             Usuario usuarioLogeado = null;

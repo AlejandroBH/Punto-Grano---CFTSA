@@ -15,13 +15,15 @@ public class NuevoCliente extends JFrame {
     private JTextField txtRut;
     private JLabel lblTelefono;
     private JTextField txtTelefono;
+    private JLabel lblEmail;
+    private JTextField txtEmail;
     private JButton btnRegistrar;
 
     public NuevoCliente(ClienteControlador clienteControlador) {
         this.clienteControlador = clienteControlador;
 
         setTitle("Registrar Nuevo Cliente");
-        setSize(500, 350);
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -35,6 +37,8 @@ public class NuevoCliente extends JFrame {
         txtRut = new JTextField();
         lblTelefono = new JLabel("Telefono");
         txtTelefono = new JTextField();
+        lblEmail = new JLabel("Email");
+        txtEmail = new JTextField();
         btnRegistrar = new JButton("Registrar");
 
         lblNombre.setBounds(70, 70, 80, 30);
@@ -43,19 +47,22 @@ public class NuevoCliente extends JFrame {
         txtRut.setBounds(150, 120, 230, 30);
         lblTelefono.setBounds(70, 170, 80, 30);
         txtTelefono.setBounds(150, 170, 230, 30);
-        btnRegistrar.setBounds(150, 220, 230, 30);
+        lblEmail.setBounds(70, 220, 80, 30);
+        txtEmail.setBounds(150, 220, 230, 30);
+        btnRegistrar.setBounds(150, 270, 230, 30);
 
         btnRegistrar.addActionListener(e -> {
             String nombre = txtNombre.getText();
             String rut = txtRut.getText();
             String telefono = txtTelefono.getText();
+            String email = txtEmail.getText();
 
             if (nombre.isEmpty() || rut.isEmpty() || telefono.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Cliente cliente = new Cliente(rut, nombre, telefono);
+            Cliente cliente = new Cliente(rut, nombre, telefono, email);
             clienteControlador.registrarCliente(cliente);
             JOptionPane.showMessageDialog(this, "Cliente " + nombre + " registrado correctamente");
             setVisible(false);
@@ -67,6 +74,8 @@ public class NuevoCliente extends JFrame {
         panel.add(txtRut);
         panel.add(lblTelefono);
         panel.add(txtTelefono);
+        panel.add(lblEmail);
+        panel.add(txtEmail);
         panel.add(btnRegistrar);
         add(panel);
     }

@@ -13,10 +13,10 @@ public class ClienteControlador {
 
     // solo para pruebas
     public void seedClientes() {
-        Cliente cliente1 = new Cliente("12.123.456-7", "Francisco", "+56987465432");
-        Cliente cliente2 = new Cliente("14.246.654-8", "Javier", "+56975239514");
-        Cliente cliente3 = new Cliente("21.346.754-2", "Fernanda", "+56965326497");
-        Cliente cliente4 = new Cliente("18.853.423-7", "Camila", "+56985236542");
+        Cliente cliente1 = new Cliente("12.123.456-7", "Francisco", "+56987465432", "francisco@email.com");
+        Cliente cliente2 = new Cliente("14.246.654-8", "Javier", "+56975239514", "javier@email.com");
+        Cliente cliente3 = new Cliente("21.346.754-2", "Fernanda", "+56965326497", "fernanda@email.com");
+        Cliente cliente4 = new Cliente("18.853.423-7", "Camila", "+56985236542", "camila@email.com");
 
         clientes.add(cliente1);
         clientes.add(cliente2);
@@ -45,9 +45,10 @@ public class ClienteControlador {
         return null;
     }
 
-    public void editarCliente(Cliente cliente, String nombre, String telefono) {
+    public void editarCliente(Cliente cliente, String nombre, String telefono, String email) {
         cliente.setNombre(nombre);
         cliente.setTelefono(telefono);
+        cliente.setEmail(email);
     }
 
     public void eliminarCliente(Cliente cliente) {
