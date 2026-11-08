@@ -12,7 +12,7 @@ public class ModificarRecompensa extends JFrame {
     private RecompensaControlador recompensaControlador;
     private ProductoControlador productoControlador;
 
-    private ArrayList<String> premios;
+    private ArrayList<Producto> listaProductos;
 
     private JPanel panel;
     private JLabel lblPremio;
@@ -24,8 +24,12 @@ public class ModificarRecompensa extends JFrame {
     private JButton btnModificar;
 
     private void cargarProductos() {
+        listaProductos = new ArrayList<>();
+        comPremio.removeAllItems();
+
         for (Producto producto : productoControlador.getProductos()) {
             if (producto.isDisponible()) {
+                listaProductos.add(producto);
                 comPremio.addItem(producto.getNombre());
             }
         }
@@ -91,7 +95,7 @@ public class ModificarRecompensa extends JFrame {
             }
 
             int idProducto = comPremio.getSelectedIndex();
-            Producto producto = productoControlador.obtenerProducto(idProducto);
+            Producto producto = listaProductos.get(idProducto);
 
             recompensaControlador.editarRecompensa(recompensa, producto, premio, costoPuntos, disponible);
 

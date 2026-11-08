@@ -17,6 +17,8 @@ public class NuevaVenta extends JFrame {
     private ProductoControlador productoControlador;
     private ClienteControlador clienteControlador;
 
+    private ArrayList<Producto> listaProductos;
+
     private JPanel panel;
     private JLabel lblCliente;
     private JComboBox comCliente;
@@ -31,9 +33,13 @@ public class NuevaVenta extends JFrame {
     private JButton btnRegistrar;
 
     private void cargarProductos() {
+        listaProductos = new ArrayList<>();
+        comProducto.removeAllItems();
+
         for (Producto producto : productoControlador.getProductos()) {
-            if (producto.isDisponible()) {
-                comProducto.addItem(producto.getNombre());
+            if (producto.isDisponible() && producto.getStock() > 0) {
+                listaProductos.add(producto);
+                comProducto.addItem(producto.getNombre() + " (Stock: " + producto.getStock() + ")");
             }
         }
     }
@@ -94,7 +100,26 @@ public class NuevaVenta extends JFrame {
                 return;
             }
 
-            Producto productoSeleccionado = productoControlador.obtenerProducto(indice);
+            Producto productoSeleccionado = listaProductos.get(indice);
+
+            if (productoSeleccionado.getStock() <= 0) {
+                JOptionPane.showMessageDialog(this, "No hay stock disponible para este producto", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int cantidadEnCarrito = 0;
+
+            for (Producto producto : carritoControlador.getCarrito()) {
+                if (producto.getCodigo().equals(productoSeleccionado.getCodigo())) {
+                    cantidadEnCarrito++;
+                }
+            }
+
+            if (cantidadEnCarrito >= productoSeleccionado.getStock()) {
+                JOptionPane.showMessageDialog(this, "No hay suficiente stock disponible para este producto", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             carritoControlador.agregarCarrito(productoSeleccionado);
             actualizarCarrito();
 
@@ -109,11 +134,26 @@ public class NuevaVenta extends JFrame {
 
         btnRegistrar.addActionListener(e -> {
             int clienteIndice = comCliente.getSelectedIndex();
-            Cliente clienteEncontrado = clienteControlador.obtenerCliente(clienteIndice);
 
             if (clienteIndice == -1 || comCliente.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "No existen clientes registrados", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+
+            if (carritoControlador.getCarrito().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes agregar al menos un producto a la venta", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Cliente clienteEncontrado = clienteControlador.obtenerCliente(clienteIndice);
+
+            // Descontar stock de los productos vendidos
+            for (Producto producto : carritoControlador.getCarrito()) {
+                producto.setStock(producto.getStock() - 1);
+                if (producto.getStock() <= 0) {
+                    producto.setStock(0);
+                    producto.setDisponible(false);
+                }
             }
 
             Pedido nuevoPedido = new Pedido(clienteEncontrado);

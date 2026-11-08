@@ -47,7 +47,14 @@ public class ProductoControlador {
         producto.setPrecio(precio);
         producto.setStock(stock);
         producto.setCategoria(categoria);
-        producto.setDisponible(disponible);
+
+        // Validacion para montos inferiores a cero, y actualiza valor a falso automaticamente si no hay stock
+        if (stock <= 0) {
+            producto.setStock(0);
+            producto.setDisponible(false);
+        } else {
+            producto.setDisponible(disponible);
+        }
     }
 
     public void eliminarProducto(Producto producto) {

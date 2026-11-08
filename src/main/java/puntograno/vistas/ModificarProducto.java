@@ -91,9 +91,18 @@ public class ModificarProducto extends JFrame {
                 return;
             }
 
-            if (precio <= 0 || stock <= 0) {
-                JOptionPane.showMessageDialog(this, "El precio o stock deben ser mayores a cero", "Error", JOptionPane.ERROR_MESSAGE);
+            if (precio <= 0) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a cero", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+
+            if (stock < 0) {
+                JOptionPane.showMessageDialog(this, "El stock no puede ser negativo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (stock == 0) {
+                disponible = false;
             }
 
             productoControlador.editarProducto(producto, nombre, precio, stock, categoria, disponible);

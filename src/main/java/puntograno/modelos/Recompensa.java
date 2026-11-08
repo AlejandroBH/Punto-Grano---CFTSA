@@ -24,6 +24,10 @@ public class Recompensa {
         return premio.getNombre();
     }
 
+    public Producto getProducto() {
+        return premio;
+    }
+
     public void setPremio(Producto premio) {
         this.premio = premio;
     }

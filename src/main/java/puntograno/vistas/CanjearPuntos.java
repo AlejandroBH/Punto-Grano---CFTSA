@@ -12,6 +12,8 @@ public class CanjearPuntos extends JFrame {
     private RecompensaControlador recompensaControlador;
     private ClienteControlador clienteControlador;
 
+    private ArrayList<Recompensa> listaRecompensas; // carga local para evitar incontinencia con indices cuando hay productos no disponibles
+
     private JPanel panel;
     private JLabel lblCliente;
     private JComboBox comCliente;
@@ -20,8 +22,12 @@ public class CanjearPuntos extends JFrame {
     private JButton btnCanjear;
 
     private void cargarRecompensas() {
+        listaRecompensas = new ArrayList<>();
+        comRecompensa.removeAllItems();
+
         for (Recompensa recompensa : recompensaControlador.getRecompensas()) {
             if (recompensa.isDisponible()) {
+                listaRecompensas.add(recompensa);
                 comRecompensa.addItem(recompensa.getPremio() + " (" + recompensa.getCostoPuntos() + " puntos)");
             }
         }
@@ -75,7 +81,12 @@ public class CanjearPuntos extends JFrame {
             }
 
             Cliente clienteEncontrado = clienteControlador.obtenerCliente(clienteIndice);
-            Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(recompensaIndice);
+            Recompensa recompensaSeleccionada = listaRecompensas.get(recompensaIndice);
+
+            if (recompensaSeleccionada.getProducto() != null && recompensaSeleccionada.getProducto().getStock() <= 0) {
+                JOptionPane.showMessageDialog(this, "No hay stock disponible para esta recompensa", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (clienteEncontrado.getTarjeta().getPuntosAcumulados() < recompensaSeleccionada.getCostoPuntos()) {
                 JOptionPane.showMessageDialog(this, "El cliente no tiene puntos suficientes", "Error", JOptionPane.ERROR_MESSAGE);
