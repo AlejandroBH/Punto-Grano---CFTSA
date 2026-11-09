@@ -1,11 +1,14 @@
 package puntograno.vistas;
 
-import puntograno.controladores.ClienteControlador;
-import puntograno.controladores.PedidoControlador;
-import puntograno.controladores.ProductoControlador;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import puntograno.controladores.ClienteControlador;
+import puntograno.controladores.PedidoControlador;
+import puntograno.controladores.ProductoControlador;
 import puntograno.modelos.Cliente;
 import puntograno.modelos.Pedido;
 import puntograno.modelos.Producto;
@@ -20,6 +23,7 @@ public class NuevaVenta extends JFrame {
     private ArrayList<Producto> listaProductos;
 
     private JPanel panel;
+    private JLabel lblTitulo;
     private JLabel lblCliente;
     private JComboBox comCliente;
     private JLabel lblProducto;
@@ -76,21 +80,74 @@ public class NuevaVenta extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
+        panel.setBackground(new Color(245, 240, 235));
+
+        lblTitulo = new JLabel("Registrar Nueva Venta");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(70, 45, 30));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+
         lblCliente = new JLabel("Cliente");
+        lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
+        lblCliente.setForeground(new Color(70, 45, 30));
+
         comCliente = new JComboBox<>();
+        comCliente.setFont(new Font("Arial", Font.PLAIN, 14));
+        comCliente.setBackground(Color.WHITE);
         cargarClientes();
+
         lblProducto = new JLabel("Producto");
+        lblProducto.setFont(new Font("Arial", Font.BOLD, 13));
+        lblProducto.setForeground(new Color(70, 45, 30));
+
         comProducto = new JComboBox<>();
+        comProducto.setFont(new Font("Arial", Font.PLAIN, 14));
+        comProducto.setBackground(Color.WHITE);
         cargarProductos();
+
         btnAgregar = new JButton("Agregar");
+        btnAgregar.setBackground(new Color(240, 235, 230));
+        btnAgregar.setForeground(new Color(70, 45, 30));
+        btnAgregar.setFont(new Font("Arial", Font.BOLD, 13));
+        btnAgregar.setFocusPainted(false);
+        btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnAgregar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnAgregar.setToolTipText("Agregar producto al carrito");
+
         modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Producto");
         modeloTabla.addColumn("Precio");
         tablaProductos = new JTable(modeloTabla);
+
+        tablaProductos.setRowHeight(28);
+        tablaProductos.setFont(new Font("Arial", Font.PLAIN, 13));
+        tablaProductos.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
+        tablaProductos.getTableHeader().setForeground(new Color(70, 45, 30));
+        tablaProductos.getTableHeader().setReorderingAllowed(false);
+        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tablaProductos.setSelectionBackground(new Color(230, 215, 195));
+        tablaProductos.setSelectionForeground(Color.BLACK);
+
         scrollTabla = new JScrollPane(tablaProductos);
+        scrollTabla.getViewport().setBackground(Color.WHITE);
+        scrollTabla.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+
         lblTotal = new JLabel("Total");
+        lblTotal.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTotal.setForeground(new Color(70, 45, 30));
+
         txtTotal = new JLabel("$ 0");
+        txtTotal.setFont(new Font("Arial", Font.BOLD, 16));
+        txtTotal.setForeground(new Color(111, 78, 55));
+
         btnRegistrar = new JButton("Registrar Venta");
+        btnRegistrar.setBackground(new Color(240, 235, 230));
+        btnRegistrar.setForeground(new Color(70, 45, 30));
+        btnRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnRegistrar.setToolTipText("Registrar y completar venta");
 
         btnAgregar.addActionListener(e -> {
             int indice = comProducto.getSelectedIndex();
@@ -164,6 +221,7 @@ public class NuevaVenta extends JFrame {
             setVisible(false);
         });
 
+        lblTitulo.setBounds(50, 10, 460, 25);
         lblCliente.setBounds(50, 40, 80, 30);
         comCliente.setBounds(140, 40, 200, 30);
         lblProducto.setBounds(50, 90, 80, 30);
@@ -174,6 +232,7 @@ public class NuevaVenta extends JFrame {
         txtTotal.setBounds(140, 360, 200, 30);
         btnRegistrar.setBounds(140, 415, 200, 35);
 
+        panel.add(lblTitulo);
         panel.add(lblCliente);
         panel.add(comCliente);
         panel.add(lblProducto);

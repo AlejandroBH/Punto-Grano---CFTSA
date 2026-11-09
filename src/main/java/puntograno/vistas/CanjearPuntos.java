@@ -1,9 +1,12 @@
 package puntograno.vistas;
 
-import puntograno.controladores.ClienteControlador;
-import puntograno.controladores.RecompensaControlador;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.*;
+import puntograno.controladores.ClienteControlador;
+import puntograno.controladores.RecompensaControlador;
 import puntograno.modelos.Cliente;
 import puntograno.modelos.Recompensa;
 
@@ -15,6 +18,7 @@ public class CanjearPuntos extends JFrame {
     private ArrayList<Recompensa> listaRecompensas; // carga local para evitar incontinencia con indices cuando hay productos no disponibles
 
     private JPanel panel;
+    private JLabel lblTitulo;
     private JLabel lblCliente;
     private JComboBox comCliente;
     private JLabel lblRecompensa;
@@ -52,19 +56,46 @@ public class CanjearPuntos extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        lblCliente = new JLabel("Cliente");
-        comCliente = new JComboBox<>();
-        cargarClientes();
-        lblRecompensa = new JLabel("Recompensa");
-        comRecompensa = new JComboBox<>();
-        cargarRecompensas();
-        btnCanjear = new JButton("Canjear");
+        panel.setBackground(new Color(245, 240, 235));
 
+        lblTitulo = new JLabel("Canjear Puntos de Fidelidad");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(70, 45, 30));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+
+        lblCliente = new JLabel("Cliente");
+        lblCliente.setFont(new Font("Arial", Font.BOLD, 13));
+        lblCliente.setForeground(new Color(70, 45, 30));
+
+        comCliente = new JComboBox<>();
+        comCliente.setFont(new Font("Arial", Font.PLAIN, 14));
+        comCliente.setBackground(Color.WHITE);
+        cargarClientes();
+
+        lblRecompensa = new JLabel("Recompensa");
+        lblRecompensa.setFont(new Font("Arial", Font.BOLD, 13));
+        lblRecompensa.setForeground(new Color(70, 45, 30));
+
+        comRecompensa = new JComboBox<>();
+        comRecompensa.setFont(new Font("Arial", Font.PLAIN, 14));
+        comRecompensa.setBackground(Color.WHITE);
+        cargarRecompensas();
+
+        btnCanjear = new JButton("Canjear");
+        btnCanjear.setBackground(new Color(240, 235, 230));
+        btnCanjear.setForeground(new Color(70, 45, 30));
+        btnCanjear.setFont(new Font("Arial", Font.BOLD, 14));
+        btnCanjear.setFocusPainted(false);
+        btnCanjear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnCanjear.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnCanjear.setToolTipText("Canjear la recompensa seleccionada");
+
+        lblTitulo.setBounds(70, 15, 330, 25);
         lblCliente.setBounds(70, 50, 100, 30);
         comCliente.setBounds(180, 50, 220, 30);
         lblRecompensa.setBounds(70, 100, 100, 30);
         comRecompensa.setBounds(180, 100, 220, 30);
-        btnCanjear.setBounds(180, 150, 220, 35);
+        btnCanjear.setBounds(180, 155, 220, 35);
 
         btnCanjear.addActionListener(e -> {
             int clienteIndice = comCliente.getSelectedIndex();
@@ -98,6 +129,7 @@ public class CanjearPuntos extends JFrame {
             setVisible(false);
         });
 
+        panel.add(lblTitulo);
         panel.add(lblCliente);
         panel.add(comCliente);
         panel.add(lblRecompensa);

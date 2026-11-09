@@ -1,7 +1,10 @@
 package puntograno.vistas;
 
-import puntograno.controladores.ProductoControlador;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import javax.swing.*;
+import puntograno.controladores.ProductoControlador;
 import puntograno.modelos.Producto;
 
 public class NuevoProducto extends JFrame {
@@ -11,6 +14,7 @@ public class NuevoProducto extends JFrame {
     private String[] categorias = {"Productos", "Accesorios"};
 
     private JPanel panel;
+    private JLabel lblTitulo;
     private JLabel lblNombre;
     private JTextField txtNombre;
     private JLabel lblPrecio;
@@ -35,18 +39,68 @@ public class NuevoProducto extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        lblNombre = new JLabel("Nombre");
-        txtNombre = new JTextField(10);
-        lblPrecio = new JLabel("Precio");
-        txtPrecio = new JTextField();
-        lblStock = new JLabel("Stock");
-        txtStock = new JTextField();
-        lblCategoria = new JLabel("Categoria");
-        comCategoria = new JComboBox<>(categorias);
-        lblDisponible = new JLabel("Disponible");
-        cheDisponible = new JCheckBox("", true);
-        btnRegistrar = new JButton("Registrar");
+        panel.setBackground(new Color(245, 240, 235));
 
+        lblTitulo = new JLabel("Registrar Nuevo Producto");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(70, 45, 30));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+
+        lblNombre = new JLabel("Nombre");
+        lblNombre.setFont(new Font("Arial", Font.BOLD, 13));
+        lblNombre.setForeground(new Color(70, 45, 30));
+
+        txtNombre = new JTextField(10);
+        txtNombre.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtNombre.setBackground(Color.WHITE);
+        txtNombre.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        txtNombre.setToolTipText("Nombre del producto");
+
+        lblPrecio = new JLabel("Precio");
+        lblPrecio.setFont(new Font("Arial", Font.BOLD, 13));
+        lblPrecio.setForeground(new Color(70, 45, 30));
+
+        txtPrecio = new JTextField();
+        txtPrecio.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtPrecio.setBackground(Color.WHITE);
+        txtPrecio.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        txtPrecio.setToolTipText("Precio en pesos");
+
+        lblStock = new JLabel("Stock");
+        lblStock.setFont(new Font("Arial", Font.BOLD, 13));
+        lblStock.setForeground(new Color(70, 45, 30));
+
+        txtStock = new JTextField();
+        txtStock.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtStock.setBackground(Color.WHITE);
+        txtStock.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        txtStock.setToolTipText("Cantidad disponible");
+
+        lblCategoria = new JLabel("Categoria");
+        lblCategoria.setFont(new Font("Arial", Font.BOLD, 13));
+        lblCategoria.setForeground(new Color(70, 45, 30));
+
+        comCategoria = new JComboBox<>(categorias);
+        comCategoria.setFont(new Font("Arial", Font.PLAIN, 14));
+        comCategoria.setBackground(Color.WHITE);
+
+        lblDisponible = new JLabel("Disponible");
+        lblDisponible.setFont(new Font("Arial", Font.BOLD, 13));
+        lblDisponible.setForeground(new Color(70, 45, 30));
+
+        cheDisponible = new JCheckBox("", true);
+        cheDisponible.setBackground(new Color(245, 240, 235));
+
+        btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setBackground(new Color(240, 235, 230));
+        btnRegistrar.setForeground(new Color(70, 45, 30));
+        btnRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnRegistrar.setFocusPainted(false);
+        btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnRegistrar.setToolTipText("Registrar producto en el catalogo");
+
+        lblTitulo.setBounds(70, 20, 310, 30);
         lblNombre.setBounds(70, 70, 80, 30);
         txtNombre.setBounds(150, 70, 230, 30);
         lblPrecio.setBounds(70, 120, 80, 30);
@@ -57,10 +111,9 @@ public class NuevoProducto extends JFrame {
         comCategoria.setBounds(150, 220, 230, 30);
         lblDisponible.setBounds(70, 270, 80, 30);
         cheDisponible.setBounds(150, 270, 230, 30);
-        btnRegistrar.setBounds(150, 320, 230, 30);
+        btnRegistrar.setBounds(150, 325, 230, 35);
 
         btnRegistrar.addActionListener(e -> {
-
             String nombre = txtNombre.getText();
             String precioTexto = txtPrecio.getText();
             String stockTexto = txtStock.getText();
@@ -98,12 +151,14 @@ public class NuevoProducto extends JFrame {
                 disponible = false;
             }
 
-            Producto producto = new Producto(nombre, categoria, precio, stock, disponible);
-            productoControlador.registrarProducto(producto);
-            JOptionPane.showMessageDialog(this, "Producto " + producto.getNombre() + " registrado correctamente");
+            Producto nuevoProducto = new Producto(nombre, categoria, precio, stock, disponible);
+            productoControlador.registrarProducto(nuevoProducto);
+
+            JOptionPane.showMessageDialog(this, "Producto " + nombre + " registrado correctamente");
             setVisible(false);
         });
 
+        panel.add(lblTitulo);
         panel.add(lblNombre);
         panel.add(txtNombre);
         panel.add(lblPrecio);

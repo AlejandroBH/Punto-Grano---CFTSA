@@ -1,9 +1,12 @@
 package puntograno.vistas;
 
-import puntograno.controladores.ProductoControlador;
-import puntograno.controladores.RecompensaControlador;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.*;
+import puntograno.controladores.ProductoControlador;
+import puntograno.controladores.RecompensaControlador;
 import puntograno.modelos.Producto;
 import puntograno.modelos.Recompensa;
 
@@ -15,6 +18,7 @@ public class ModificarRecompensa extends JFrame {
     private ArrayList<Producto> listaProductos;
 
     private JPanel panel;
+    private JLabel lblTitulo;
     private JLabel lblPremio;
     private JComboBox comPremio;
     private JLabel lblCostoPuntos;
@@ -48,22 +52,56 @@ public class ModificarRecompensa extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        lblPremio = new JLabel("Premio");
-        comPremio = new JComboBox<>();
-        cargarProductos(); // Llenamos combobox con lista de productos disponibles
-        lblCostoPuntos = new JLabel("Puntos");
-        txtCostoPuntos = new JTextField();
-        lblDisponible = new JLabel("Disponible");
-        cheDisponible = new JCheckBox("", true);
-        btnModificar = new JButton("Modificar");
+        panel.setBackground(new Color(245, 240, 235));
 
+        lblTitulo = new JLabel("Modificar Recompensa");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(70, 45, 30));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+
+        lblPremio = new JLabel("Premio");
+        lblPremio.setFont(new Font("Arial", Font.BOLD, 13));
+        lblPremio.setForeground(new Color(70, 45, 30));
+
+        comPremio = new JComboBox<>();
+        comPremio.setFont(new Font("Arial", Font.PLAIN, 14));
+        comPremio.setBackground(Color.WHITE);
+        cargarProductos(); // Llenamos combobox con lista de productos disponibles
+
+        lblCostoPuntos = new JLabel("Puntos");
+        lblCostoPuntos.setFont(new Font("Arial", Font.BOLD, 13));
+        lblCostoPuntos.setForeground(new Color(70, 45, 30));
+
+        txtCostoPuntos = new JTextField();
+        txtCostoPuntos.setFont(new Font("Arial", Font.PLAIN, 14));
+        txtCostoPuntos.setBackground(Color.WHITE);
+        txtCostoPuntos.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        txtCostoPuntos.setToolTipText("Costo en puntos");
+
+        lblDisponible = new JLabel("Disponible");
+        lblDisponible.setFont(new Font("Arial", Font.BOLD, 13));
+        lblDisponible.setForeground(new Color(70, 45, 30));
+
+        cheDisponible = new JCheckBox("", true);
+        cheDisponible.setBackground(new Color(245, 240, 235));
+
+        btnModificar = new JButton("Modificar");
+        btnModificar.setBackground(new Color(240, 235, 230));
+        btnModificar.setForeground(new Color(70, 45, 30));
+        btnModificar.setFont(new Font("Arial", Font.BOLD, 14));
+        btnModificar.setFocusPainted(false);
+        btnModificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnModificar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificar.setToolTipText("Guardar modificaciones");
+
+        lblTitulo.setBounds(70, 20, 310, 30);
         lblPremio.setBounds(70, 70, 80, 30);
         comPremio.setBounds(150, 70, 230, 30);
         lblCostoPuntos.setBounds(70, 120, 80, 30);
         txtCostoPuntos.setBounds(150, 120, 230, 30);
         lblDisponible.setBounds(70, 170, 80, 30);
         cheDisponible.setBounds(150, 170, 230, 30);
-        btnModificar.setBounds(150, 220, 230, 30);
+        btnModificar.setBounds(150, 225, 230, 35);
 
         // Cargamos datos originales de cliente seleccionado
         comPremio.setSelectedItem(recompensa.getPremio());
@@ -103,6 +141,7 @@ public class ModificarRecompensa extends JFrame {
             setVisible(false);
         });
 
+        panel.add(lblTitulo);
         panel.add(lblPremio);
         panel.add(comPremio);
         panel.add(lblCostoPuntos);
