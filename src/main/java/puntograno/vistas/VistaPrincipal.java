@@ -1,10 +1,12 @@
 package puntograno.vistas;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.*;
 import puntograno.controladores.ClienteControlador;
 import puntograno.controladores.PedidoControlador;
 import puntograno.controladores.ProductoControlador;
 import puntograno.controladores.RecompensaControlador;
-import javax.swing.*;
 import puntograno.modelos.Usuario;
 
 public class VistaPrincipal extends JFrame {
@@ -63,15 +65,21 @@ public class VistaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        escritorio = new JDesktopPane();
+        escritorio = new PanelConFondo();
         barraMenu = new JMenuBar();
+        barraMenu.setBackground(new Color(245, 240, 235));
+        barraMenu.setBorder(BorderFactory.createLineBorder(new Color(210, 195, 180)));
 
         // Menu clientes
         iconoNuevoCliente = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nuevo-cliente.png"));
         iconoVerClientes = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-clientes.png"));
         menuClientes = new JMenu("Clientes");
+        menuClientes.setFont(new Font("Arial", Font.BOLD, 13));
+        menuClientes.setForeground(new Color(70, 45, 30));
         itemNuevoCliente = new JMenuItem("Nuevo Cliente");
         itemVerClientes = new JMenuItem("Ver Clientes");
+        itemNuevoCliente.setFont(new Font("Arial", Font.PLAIN, 13));
+        itemVerClientes.setFont(new Font("Arial", Font.PLAIN, 13));
         itemNuevoCliente.setIcon(iconoNuevoCliente);
         itemVerClientes.setIcon(iconoVerClientes);
         menuClientes.add(itemNuevoCliente);
@@ -92,8 +100,12 @@ public class VistaPrincipal extends JFrame {
         iconoNuevoProducto = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nuevo-producto.png"));
         iconoVerProductos = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-productos.png"));
         menuProductos = new JMenu("Productos");
+        menuProductos.setFont(new Font("Arial", Font.BOLD, 13));
+        menuProductos.setForeground(new Color(70, 45, 30));
         itemNuevoProducto = new JMenuItem("Nuevo Producto");
         itemVerProductos = new JMenuItem("Ver Productos");
+        itemNuevoProducto.setFont(new Font("Arial", Font.PLAIN, 13));
+        itemVerProductos.setFont(new Font("Arial", Font.PLAIN, 13));
         itemNuevoProducto.setIcon(iconoNuevoProducto);
         itemVerProductos.setIcon(iconoVerProductos);
         menuProductos.add(itemNuevoProducto);
@@ -119,8 +131,12 @@ public class VistaPrincipal extends JFrame {
         iconoNuevaRecompensa = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_nueva-recompensa.png"));
         iconoVerRecompensas = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_ver-recompensas.png"));
         menuRecompensa = new JMenu("Recompensa");
+        menuRecompensa.setFont(new Font("Arial", Font.BOLD, 13));
+        menuRecompensa.setForeground(new Color(70, 45, 30));
         itemNuevaRecompensa = new JMenuItem("Nueva Recompensa");
         itemVerRecompensas = new JMenuItem("Ver Recompensas");
+        itemNuevaRecompensa.setFont(new Font("Arial", Font.PLAIN, 13));
+        itemVerRecompensas.setFont(new Font("Arial", Font.PLAIN, 13));
         itemNuevaRecompensa.setIcon(iconoNuevaRecompensa);
         itemVerRecompensas.setIcon(iconoVerRecompensas);
         menuRecompensa.add(itemNuevaRecompensa);
@@ -147,9 +163,14 @@ public class VistaPrincipal extends JFrame {
         iconoProcesarVentas = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_procesar-ventas.png"));
         iconoCanjearPuntos = new ImageIcon(getClass().getResource("/puntograno/imagenes/icono_canjear-puntos.png"));
         menuOperaciones = new JMenu("Operaciones");
+        menuOperaciones.setFont(new Font("Arial", Font.BOLD, 13));
+        menuOperaciones.setForeground(new Color(70, 45, 30));
         itemNuevaVenta = new JMenuItem("Nueva Venta");
         itemProcesarVentas = new JMenuItem("Procesar Ventas");
         itemCanjearPuntos = new JMenuItem("Canjear Puntos");
+        itemNuevaVenta.setFont(new Font("Arial", Font.PLAIN, 13));
+        itemProcesarVentas.setFont(new Font("Arial", Font.PLAIN, 13));
+        itemCanjearPuntos.setFont(new Font("Arial", Font.PLAIN, 13));
         itemNuevaVenta.setIcon(iconoNuevaVenta);
         itemProcesarVentas.setIcon(iconoProcesarVentas);
         itemCanjearPuntos.setIcon(iconoCanjearPuntos);

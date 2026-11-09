@@ -4,8 +4,8 @@ public class Administrador extends Usuario {
 
     private String clave;
 
-    public Administrador(String rut, String nombre, String telefono, String clave) {
-        super(rut, nombre, telefono);
+    public Administrador(String rut, String nombre, String telefono, String email, String clave) {
+        super(rut, nombre, telefono, email);
         this.clave = clave;
     }
 

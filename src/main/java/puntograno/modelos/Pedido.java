@@ -1,17 +1,20 @@
 package puntograno.modelos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class Pedido {
 
     private UUID idPedido;
+    private Date fechaPedido;
     private String estado; // "En preparacion", "Listo para retiro", "Entregado"
     private Cliente cliente; // Cliente - Pedido 1:1 
     private ArrayList<Producto> listaProductos; // Producto - Pedido 1:N 
 
     public Pedido(Cliente cliente) {
         this.idPedido = UUID.randomUUID();
+        this.fechaPedido = new Date();
         this.estado = "En preparacion";
         this.cliente = cliente;
         this.listaProductos = new ArrayList<Producto>();
@@ -19,6 +22,10 @@ public class Pedido {
 
     public UUID getIdPedido() {
         return idPedido;
+    }
+
+    public Date getFechaPedido() {
+        return fechaPedido;
     }
 
     public String getEstado() {

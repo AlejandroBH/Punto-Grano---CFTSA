@@ -1,8 +1,11 @@
 package puntograno.vistas;
 
-import puntograno.controladores.ProductoControlador;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import puntograno.controladores.ProductoControlador;
 import puntograno.modelos.Producto;
 import puntograno.modelos.Usuario;
 
@@ -11,6 +14,7 @@ public class VerProductos extends JInternalFrame {
     private ProductoControlador productoControlador;
 
     private JPanel panel;
+    private JLabel lblTitulo;
     private JTable tablaProductos;
     private DefaultTableModel modeloTabla;
     private JScrollPane scrollTabla;
@@ -27,6 +31,7 @@ public class VerProductos extends JInternalFrame {
                 producto.getNombre(),
                 producto.getCategoria(),
                 "$ " + producto.getPrecio(),
+                producto.getStock(),
                 disponible
             });
         }
@@ -46,18 +51,43 @@ public class VerProductos extends JInternalFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
+        panel.setBackground(new Color(245, 240, 235));
+
+        lblTitulo = new JLabel("Productos Registrados");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(70, 45, 30));
+        lblTitulo.setBounds(40, 10, 550, 30);
 
         modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Categoria");
         modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Stock");
         modeloTabla.addColumn("Disponible");
         tablaProductos = new JTable(modeloTabla);
 
+        tablaProductos.setRowHeight(28);
+        tablaProductos.setFont(new Font("Arial", Font.PLAIN, 13));
+        tablaProductos.getTableHeader().setFont(new Font("Arial", Font.BOLD, 13));
+        tablaProductos.getTableHeader().setForeground(new Color(70, 45, 30));
+        tablaProductos.getTableHeader().setReorderingAllowed(false);
+        tablaProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tablaProductos.setSelectionBackground(new Color(230, 215, 195));
+        tablaProductos.setSelectionForeground(Color.BLACK);
+
         scrollTabla = new JScrollPane(tablaProductos);
-        scrollTabla.setBounds(40, 40, 550, 250);
+        scrollTabla.getViewport().setBackground(Color.WHITE);
+        scrollTabla.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        scrollTabla.setBounds(40, 45, 550, 255);
 
         btnModificarProducto = new JButton("Modificar Producto");
+        btnModificarProducto.setBackground(new Color(240, 235, 230));
+        btnModificarProducto.setForeground(new Color(70, 45, 30));
+        btnModificarProducto.setFont(new Font("Arial", Font.BOLD, 14));
+        btnModificarProducto.setFocusPainted(false);
+        btnModificarProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnModificarProducto.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificarProducto.setToolTipText("Modificar el producto seleccionado");
         btnModificarProducto.setBounds(40, 320, 200, 40);
 
         btnModificarProducto.addActionListener(e -> {
@@ -75,6 +105,13 @@ public class VerProductos extends JInternalFrame {
         });
 
         btnEliminarProducto = new JButton("Eliminar Producto");
+        btnEliminarProducto.setBackground(new Color(250, 240, 240));
+        btnEliminarProducto.setForeground(new Color(160, 50, 40));
+        btnEliminarProducto.setFont(new Font("Arial", Font.BOLD, 14));
+        btnEliminarProducto.setFocusPainted(false);
+        btnEliminarProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnEliminarProducto.setBorder(BorderFactory.createLineBorder(new Color(200, 140, 130)));
+        btnEliminarProducto.setToolTipText("Eliminar el producto seleccionado");
         btnEliminarProducto.setBounds(270, 320, 200, 40);
 
         btnEliminarProducto.addActionListener(e -> {
@@ -91,6 +128,7 @@ public class VerProductos extends JInternalFrame {
             setVisible(false);
         });
 
+        panel.add(lblTitulo);
         panel.add(scrollTabla);
 
         // Solo administradores pueden modificar o eliminar productos

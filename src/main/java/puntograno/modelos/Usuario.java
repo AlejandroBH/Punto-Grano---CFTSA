@@ -1,5 +1,6 @@
 package puntograno.modelos;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Usuario {
@@ -8,12 +9,16 @@ public class Usuario {
     private String rut;
     private String nombre;
     private String telefono;
+    private String email;
+    private Date fechaRegistro;
 
-    public Usuario(String rut, String nombre, String telefono) {
+    public Usuario(String rut, String nombre, String telefono, String email) {
         this.idUsuario = UUID.randomUUID();
         this.rut = rut;
         this.nombre = nombre;
         this.telefono = telefono;
+        this.email = email;
+        this.fechaRegistro = new Date();
     }
 
     public UUID getIdUsuario() {
@@ -38,6 +43,18 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
     }
 
     public void mostrarDatosPerfil() {

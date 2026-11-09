@@ -8,13 +8,15 @@ public class Producto {
     private String nombre;
     private String categoria; // "Productos", "Accesorios"
     private int precio;
+    private int stock;
     private boolean disponible;
 
-    public Producto(String nombre, String categoria, int precio, boolean disponible) {
+    public Producto(String nombre, String categoria, int precio, int stock, boolean disponible) {
         this.codigo = UUID.randomUUID();
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
+        this.stock = stock;
         this.disponible = disponible;
     }
 
@@ -44,6 +46,14 @@ public class Producto {
 
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public boolean isDisponible() {
