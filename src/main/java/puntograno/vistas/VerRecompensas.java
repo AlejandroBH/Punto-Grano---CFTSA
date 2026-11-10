@@ -80,12 +80,14 @@ public class VerRecompensas extends JInternalFrame {
         scrollTabla.setBounds(40, 45, 550, 255);
 
         btnModificarRecompensa = new JButton("Modificar Recompensa");
-        btnModificarRecompensa.setBackground(new Color(240, 235, 230));
-        btnModificarRecompensa.setForeground(new Color(70, 45, 30));
+        btnModificarRecompensa.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnModificarRecompensa.setBackground(new Color(70, 45, 30));
+        btnModificarRecompensa.setForeground(Color.WHITE);
+        btnModificarRecompensa.setOpaque(true);
         btnModificarRecompensa.setFont(new Font("Arial", Font.BOLD, 14));
         btnModificarRecompensa.setFocusPainted(false);
         btnModificarRecompensa.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnModificarRecompensa.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificarRecompensa.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnModificarRecompensa.setToolTipText("Modificar la recompensa seleccionada");
         btnModificarRecompensa.setBounds(40, 320, 200, 40);
 
@@ -104,12 +106,14 @@ public class VerRecompensas extends JInternalFrame {
         });
 
         btnEliminarRecompensa = new JButton("Eliminar Recompensa");
-        btnEliminarRecompensa.setBackground(new Color(250, 240, 240));
-        btnEliminarRecompensa.setForeground(new Color(160, 50, 40));
+        btnEliminarRecompensa.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnEliminarRecompensa.setBackground(new Color(160, 50, 40));
+        btnEliminarRecompensa.setForeground(Color.WHITE);
+        btnEliminarRecompensa.setOpaque(true);
         btnEliminarRecompensa.setFont(new Font("Arial", Font.BOLD, 14));
         btnEliminarRecompensa.setFocusPainted(false);
         btnEliminarRecompensa.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnEliminarRecompensa.setBorder(BorderFactory.createLineBorder(new Color(200, 140, 130)));
+        btnEliminarRecompensa.setBorder(BorderFactory.createLineBorder(new Color(160, 50, 40)));
         btnEliminarRecompensa.setToolTipText("Eliminar la recompensa seleccionada");
         btnEliminarRecompensa.setBounds(270, 320, 200, 40);
 

@@ -92,12 +92,14 @@ public class NuevoProducto extends JFrame {
         cheDisponible.setBackground(new Color(245, 240, 235));
 
         btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBackground(new Color(240, 235, 230));
-        btnRegistrar.setForeground(new Color(70, 45, 30));
+        btnRegistrar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnRegistrar.setBackground(new Color(70, 45, 30));
+        btnRegistrar.setForeground(Color.WHITE);
+        btnRegistrar.setOpaque(true);
         btnRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
         btnRegistrar.setFocusPainted(false);
         btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnRegistrar.setToolTipText("Registrar producto en el catalogo");
 
         lblTitulo.setBounds(70, 20, 310, 30);

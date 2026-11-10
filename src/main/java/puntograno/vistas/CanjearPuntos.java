@@ -82,12 +82,14 @@ public class CanjearPuntos extends JFrame {
         cargarRecompensas();
 
         btnCanjear = new JButton("Canjear");
-        btnCanjear.setBackground(new Color(240, 235, 230));
-        btnCanjear.setForeground(new Color(70, 45, 30));
+        btnCanjear.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnCanjear.setBackground(new Color(70, 45, 30));
+        btnCanjear.setForeground(Color.WHITE);
+        btnCanjear.setOpaque(true);
         btnCanjear.setFont(new Font("Arial", Font.BOLD, 14));
         btnCanjear.setFocusPainted(false);
         btnCanjear.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnCanjear.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnCanjear.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnCanjear.setToolTipText("Canjear la recompensa seleccionada");
 
         lblTitulo.setBounds(70, 15, 330, 25);

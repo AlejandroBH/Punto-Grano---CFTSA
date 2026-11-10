@@ -81,12 +81,14 @@ public class VerClientes extends JInternalFrame {
         scrollTabla.setBounds(40, 45, 550, 255);
 
         btnModificarCliente = new JButton("Modificar Cliente");
-        btnModificarCliente.setBackground(new Color(240, 235, 230));
-        btnModificarCliente.setForeground(new Color(70, 45, 30));
+        btnModificarCliente.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnModificarCliente.setBackground(new Color(70, 45, 30));
+        btnModificarCliente.setForeground(Color.WHITE);
+        btnModificarCliente.setOpaque(true);
         btnModificarCliente.setFont(new Font("Arial", Font.BOLD, 14));
         btnModificarCliente.setFocusPainted(false);
         btnModificarCliente.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnModificarCliente.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificarCliente.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnModificarCliente.setToolTipText("Modificar el cliente seleccionado");
         btnModificarCliente.setBounds(40, 320, 200, 40);
 
@@ -105,12 +107,14 @@ public class VerClientes extends JInternalFrame {
         });
 
         btnEliminarCliente = new JButton("Eliminar Cliente");
-        btnEliminarCliente.setBackground(new Color(250, 240, 240));
-        btnEliminarCliente.setForeground(new Color(160, 50, 40));
+        btnEliminarCliente.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnEliminarCliente.setBackground(new Color(160, 50, 40));
+        btnEliminarCliente.setForeground(Color.WHITE);
+        btnEliminarCliente.setOpaque(true);
         btnEliminarCliente.setFont(new Font("Arial", Font.BOLD, 14));
         btnEliminarCliente.setFocusPainted(false);
         btnEliminarCliente.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnEliminarCliente.setBorder(BorderFactory.createLineBorder(new Color(200, 140, 130)));
+        btnEliminarCliente.setBorder(BorderFactory.createLineBorder(new Color(160, 50, 40)));
         btnEliminarCliente.setToolTipText("Eliminar el cliente seleccionado");
         btnEliminarCliente.setBounds(270, 320, 200, 40);
 

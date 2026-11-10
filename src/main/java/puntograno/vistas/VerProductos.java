@@ -81,12 +81,14 @@ public class VerProductos extends JInternalFrame {
         scrollTabla.setBounds(40, 45, 550, 255);
 
         btnModificarProducto = new JButton("Modificar Producto");
-        btnModificarProducto.setBackground(new Color(240, 235, 230));
-        btnModificarProducto.setForeground(new Color(70, 45, 30));
+        btnModificarProducto.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnModificarProducto.setBackground(new Color(70, 45, 30));
+        btnModificarProducto.setForeground(Color.WHITE);
+        btnModificarProducto.setOpaque(true);
         btnModificarProducto.setFont(new Font("Arial", Font.BOLD, 14));
         btnModificarProducto.setFocusPainted(false);
         btnModificarProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnModificarProducto.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificarProducto.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnModificarProducto.setToolTipText("Modificar el producto seleccionado");
         btnModificarProducto.setBounds(40, 320, 200, 40);
 
@@ -105,12 +107,14 @@ public class VerProductos extends JInternalFrame {
         });
 
         btnEliminarProducto = new JButton("Eliminar Producto");
-        btnEliminarProducto.setBackground(new Color(250, 240, 240));
-        btnEliminarProducto.setForeground(new Color(160, 50, 40));
+        btnEliminarProducto.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnEliminarProducto.setBackground(new Color(160, 50, 40));
+        btnEliminarProducto.setForeground(Color.WHITE);
+        btnEliminarProducto.setOpaque(true);
         btnEliminarProducto.setFont(new Font("Arial", Font.BOLD, 14));
         btnEliminarProducto.setFocusPainted(false);
         btnEliminarProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnEliminarProducto.setBorder(BorderFactory.createLineBorder(new Color(200, 140, 130)));
+        btnEliminarProducto.setBorder(BorderFactory.createLineBorder(new Color(160, 50, 40)));
         btnEliminarProducto.setToolTipText("Eliminar el producto seleccionado");
         btnEliminarProducto.setBounds(270, 320, 200, 40);
 

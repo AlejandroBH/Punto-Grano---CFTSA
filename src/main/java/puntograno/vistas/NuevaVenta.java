@@ -106,12 +106,14 @@ public class NuevaVenta extends JFrame {
         cargarProductos();
 
         btnAgregar = new JButton("Agregar");
-        btnAgregar.setBackground(new Color(240, 235, 230));
-        btnAgregar.setForeground(new Color(70, 45, 30));
+        btnAgregar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnAgregar.setBackground(new Color(70, 45, 30));
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setOpaque(true);
         btnAgregar.setFont(new Font("Arial", Font.BOLD, 13));
         btnAgregar.setFocusPainted(false);
         btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnAgregar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnAgregar.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnAgregar.setToolTipText("Agregar producto al carrito");
 
         modeloTabla = new DefaultTableModel();
@@ -141,12 +143,14 @@ public class NuevaVenta extends JFrame {
         txtTotal.setForeground(new Color(111, 78, 55));
 
         btnRegistrar = new JButton("Registrar Venta");
-        btnRegistrar.setBackground(new Color(240, 235, 230));
-        btnRegistrar.setForeground(new Color(70, 45, 30));
+        btnRegistrar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnRegistrar.setBackground(new Color(70, 45, 30));
+        btnRegistrar.setForeground(Color.WHITE);
+        btnRegistrar.setOpaque(true);
         btnRegistrar.setFont(new Font("Arial", Font.BOLD, 14));
         btnRegistrar.setFocusPainted(false);
         btnRegistrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnRegistrar.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnRegistrar.setToolTipText("Registrar y completar venta");
 
         btnAgregar.addActionListener(e -> {

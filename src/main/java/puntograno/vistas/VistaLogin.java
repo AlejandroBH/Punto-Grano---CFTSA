@@ -56,12 +56,14 @@ public class VistaLogin extends JFrame {
         txtClave.setToolTipText("Ingrese su clave");
 
         btnIngresar = new JButton("Ingresar");
-        btnIngresar.setBackground(new Color(240, 235, 230));
-        btnIngresar.setForeground(new Color(70, 45, 30));
+        btnIngresar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnIngresar.setBackground(new Color(70, 45, 30));
+        btnIngresar.setForeground(Color.WHITE);
+        btnIngresar.setOpaque(true);
         btnIngresar.setFont(new Font("Arial", Font.BOLD, 14));
         btnIngresar.setFocusPainted(false);
         btnIngresar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnIngresar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnIngresar.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnIngresar.setToolTipText("Iniciar sesion en el sistema");
 
         lblTitulo.setBounds(70, 20, 310, 30);

@@ -92,12 +92,14 @@ public class ModificarProducto extends JFrame {
         cheDisponible.setBackground(new Color(245, 240, 235));
 
         btnModificar = new JButton("Modificar");
-        btnModificar.setBackground(new Color(240, 235, 230));
-        btnModificar.setForeground(new Color(70, 45, 30));
+        btnModificar.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnModificar.setBackground(new Color(70, 45, 30));
+        btnModificar.setForeground(Color.WHITE);
+        btnModificar.setOpaque(true);
         btnModificar.setFont(new Font("Arial", Font.BOLD, 14));
         btnModificar.setFocusPainted(false);
         btnModificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnModificar.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnModificar.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnModificar.setToolTipText("Guardar modificaciones del producto");
 
         lblTitulo.setBounds(70, 20, 310, 30);

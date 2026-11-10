@@ -77,12 +77,14 @@ public class VerVentas extends JInternalFrame {
         scrollTabla.setBounds(40, 45, 550, 255);
 
         btnProcesarPedido = new JButton("Procesar Pedido");
-        btnProcesarPedido.setBackground(new Color(240, 235, 230));
-        btnProcesarPedido.setForeground(new Color(70, 45, 30));
+        btnProcesarPedido.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnProcesarPedido.setBackground(new Color(70, 45, 30));
+        btnProcesarPedido.setForeground(Color.WHITE);
+        btnProcesarPedido.setOpaque(true);
         btnProcesarPedido.setFont(new Font("Arial", Font.BOLD, 14));
         btnProcesarPedido.setFocusPainted(false);
         btnProcesarPedido.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnProcesarPedido.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnProcesarPedido.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnProcesarPedido.setToolTipText("Procesar pedido en preparación");
         btnProcesarPedido.setBounds(40, 320, 200, 40);
 
@@ -107,12 +109,14 @@ public class VerVentas extends JInternalFrame {
         });
 
         btnEntregarPedido = new JButton("Entregar Pedido");
-        btnEntregarPedido.setBackground(new Color(240, 235, 230));
-        btnEntregarPedido.setForeground(new Color(70, 45, 30));
+        btnEntregarPedido.setUI(new javax.swing.plaf.basic.BasicButtonUI());
+        btnEntregarPedido.setBackground(new Color(70, 45, 30));
+        btnEntregarPedido.setForeground(Color.WHITE);
+        btnEntregarPedido.setOpaque(true);
         btnEntregarPedido.setFont(new Font("Arial", Font.BOLD, 14));
         btnEntregarPedido.setFocusPainted(false);
         btnEntregarPedido.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnEntregarPedido.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
+        btnEntregarPedido.setBorder(BorderFactory.createLineBorder(new Color(70, 45, 30)));
         btnEntregarPedido.setToolTipText("Entregar el pedido al cliente");
         btnEntregarPedido.setBounds(270, 320, 200, 40);
 
