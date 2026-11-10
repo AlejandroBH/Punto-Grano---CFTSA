@@ -103,13 +103,33 @@ public class NuevoCliente extends JFrame {
         btnRegistrar.setBounds(150, 275, 230, 35);
 
         btnRegistrar.addActionListener(e -> {
-            String nombre = txtNombre.getText();
-            String rut = txtRut.getText();
-            String telefono = txtTelefono.getText();
-            String email = txtEmail.getText();
+            String nombre = txtNombre.getText().trim();
+            String rut = txtRut.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String email = txtEmail.getText().trim();
 
-            if (nombre.isEmpty() || rut.isEmpty() || telefono.isEmpty()) {
+            if (nombre.isEmpty() || rut.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validamos campos con expresiones regulares
+            String regexRut = "^[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]$";
+            String regexTelefono = "^\\+569[0-9]{8}$";
+            String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+            if (!rut.matches(regexRut)) {
+                JOptionPane.showMessageDialog(this, "El RUT no tiene un formato válido. Formato esperado: 12.123.123-1", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!telefono.matches(regexTelefono)) {
+                JOptionPane.showMessageDialog(this, "El número de teléfono no tiene un formato válido. Formato esperado: +56912341234", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!email.matches(regexEmail)) {
+                JOptionPane.showMessageDialog(this, "El email no tiene un formato válido. Formato esperado: cuenta@correo.com", "Error de Validación", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

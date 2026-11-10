@@ -45,7 +45,8 @@ public class ClienteControlador {
         return null;
     }
 
-    public void editarCliente(Cliente cliente, String nombre, String telefono, String email) {
+    public void editarCliente(Cliente cliente, String rut, String nombre, String telefono, String email) {
+        cliente.setRut(rut);
         cliente.setNombre(nombre);
         cliente.setTelefono(telefono);
         cliente.setEmail(email);

@@ -1,5 +1,6 @@
 package puntograno.modelos;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class TarjetaFidelidad {
@@ -7,11 +8,13 @@ public class TarjetaFidelidad {
     private UUID codigoTarjeta;
     private int puntosAcumulados;
     private String nivel; // "Inicial", "Bronce", "Plata", "Oro"
+    private Date fechaEmision;
 
     public TarjetaFidelidad() {
         this.codigoTarjeta = UUID.randomUUID();
         this.puntosAcumulados = 0;
         this.nivel = "Inicial";
+        this.fechaEmision = new Date();
     }
 
     public UUID getCodigoTarjeta() {
@@ -36,6 +39,14 @@ public class TarjetaFidelidad {
         if ("Inicial".equals(nivel) || "Bronce".equals(nivel) || "Plata".equals(nivel) || "Oro".equals(nivel)) {
             this.nivel = nivel;
         }
+    }
+
+    public Date getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(Date fechaEmision) {
+        this.fechaEmision = fechaEmision;
     }
 
     // Incrementa puntos acumulados y actualiza el nivel si supera cierto umbral (ej. más de 100 puntos).
