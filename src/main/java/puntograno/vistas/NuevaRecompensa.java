@@ -68,7 +68,7 @@ public class NuevaRecompensa extends JFrame {
         comPremio.setBackground(Color.WHITE);
         cargarProductos(); // Llenamos combobox con lista de productos disponibles
 
-        lblCostoPuntos = new JLabel("Puntos");
+        lblCostoPuntos = new JLabel("Puntos *");
         lblCostoPuntos.setFont(new Font("Arial", Font.BOLD, 13));
         lblCostoPuntos.setForeground(new Color(70, 45, 30));
 

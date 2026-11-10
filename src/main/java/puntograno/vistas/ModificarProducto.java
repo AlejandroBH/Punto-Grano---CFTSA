@@ -46,7 +46,7 @@ public class ModificarProducto extends JFrame {
         lblTitulo.setForeground(new Color(70, 45, 30));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblNombre = new JLabel("Nombre");
+        lblNombre = new JLabel("Nombre *");
         lblNombre.setFont(new Font("Arial", Font.BOLD, 13));
         lblNombre.setForeground(new Color(70, 45, 30));
 
@@ -56,7 +56,7 @@ public class ModificarProducto extends JFrame {
         txtNombre.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtNombre.setToolTipText("Nombre del producto");
 
-        lblPrecio = new JLabel("Precio");
+        lblPrecio = new JLabel("Precio *");
         lblPrecio.setFont(new Font("Arial", Font.BOLD, 13));
         lblPrecio.setForeground(new Color(70, 45, 30));
 
@@ -66,7 +66,7 @@ public class ModificarProducto extends JFrame {
         txtPrecio.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtPrecio.setToolTipText("Precio en pesos");
 
-        lblStock = new JLabel("Stock");
+        lblStock = new JLabel("Stock *");
         lblStock.setFont(new Font("Arial", Font.BOLD, 13));
         lblStock.setForeground(new Color(70, 45, 30));
 

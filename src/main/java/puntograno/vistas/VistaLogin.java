@@ -35,7 +35,7 @@ public class VistaLogin extends JFrame {
         lblTitulo.setForeground(new Color(70, 45, 30));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblNombre = new JLabel("Nombre");
+        lblNombre = new JLabel("Nombre *");
         lblNombre.setFont(new Font("Arial", Font.BOLD, 13));
         lblNombre.setForeground(new Color(70, 45, 30));
 
@@ -45,7 +45,7 @@ public class VistaLogin extends JFrame {
         txtNombre.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtNombre.setToolTipText("Ingrese su nombre de usuario");
 
-        lblClave = new JLabel("Clave");
+        lblClave = new JLabel("Clave *");
         lblClave.setFont(new Font("Arial", Font.BOLD, 13));
         lblClave.setForeground(new Color(70, 45, 30));
 

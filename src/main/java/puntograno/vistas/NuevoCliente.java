@@ -42,7 +42,7 @@ public class NuevoCliente extends JFrame {
         lblTitulo.setForeground(new Color(70, 45, 30));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblNombre = new JLabel("Nombre");
+        lblNombre = new JLabel("Nombre *");
         lblNombre.setFont(new Font("Arial", Font.BOLD, 13));
         lblNombre.setForeground(new Color(70, 45, 30));
 
@@ -52,7 +52,7 @@ public class NuevoCliente extends JFrame {
         txtNombre.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtNombre.setToolTipText("Ingrese nombre completo");
 
-        lblRut = new JLabel("Rut");
+        lblRut = new JLabel("Rut *");
         lblRut.setFont(new Font("Arial", Font.BOLD, 13));
         lblRut.setForeground(new Color(70, 45, 30));
 
@@ -62,7 +62,7 @@ public class NuevoCliente extends JFrame {
         txtRut.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtRut.setToolTipText("Ingrese RUT sin espacios");
 
-        lblTelefono = new JLabel("Telefono");
+        lblTelefono = new JLabel("Telefono *");
         lblTelefono.setFont(new Font("Arial", Font.BOLD, 13));
         lblTelefono.setForeground(new Color(70, 45, 30));
 
@@ -72,7 +72,7 @@ public class NuevoCliente extends JFrame {
         txtTelefono.setBorder(BorderFactory.createLineBorder(new Color(180, 160, 140)));
         txtTelefono.setToolTipText("Ingrese numero de telefono");
 
-        lblEmail = new JLabel("Email");
+        lblEmail = new JLabel("Email *");
         lblEmail.setFont(new Font("Arial", Font.BOLD, 13));
         lblEmail.setForeground(new Color(70, 45, 30));
 

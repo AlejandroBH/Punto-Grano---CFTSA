@@ -25,8 +25,16 @@ public class Usuario {
         return idUsuario;
     }
 
+    public void setIdUsuario(UUID idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getRut() {
         return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public String getNombre() {
