@@ -41,6 +41,11 @@ public class ClienteControlador {
         return clientes;
     }
 
+    public ArrayList<Cliente> listarClientes() throws SQLException {
+        this.clientes = clienteDAO.listarClientes();
+        return this.clientes;
+    }
+
     public Cliente obtenerCliente(int idCliente) {
         return clientes.get(idCliente);
     }

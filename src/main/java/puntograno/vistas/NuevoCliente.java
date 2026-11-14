@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import puntograno.controladores.ClienteControlador;
 import puntograno.modelos.Cliente;

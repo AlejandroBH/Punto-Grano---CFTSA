@@ -57,7 +57,7 @@ public class VistaPrincipal extends JFrame {
 
         // Rellena tablas con objetos iniciales (para pruebas)
         productoControlador.seedProductos();
-        clienteControlador.seedClientes();
+        // clienteControlador.seedClientes();
         recompensaControlador.seedRecompensas(productoControlador.getProductos());
 
         setTitle("Bienvenido Sr. " + usuarioLogeado.getNombre() + " a PuntoGrano - Sistema de Cafeteria");

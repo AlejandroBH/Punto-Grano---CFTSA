@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import puntograno.controladores.ClienteControlador;
@@ -21,18 +22,22 @@ public class VerClientes extends JInternalFrame {
     private JButton btnModificarCliente;
     private JButton btnEliminarCliente;
 
-    private void cargarClientes() {
+    public void cargarClientes() {
         modeloTabla.setRowCount(0);
 
-        for (Cliente cliente : clienteControlador.getClientes()) {
-            modeloTabla.addRow(new Object[]{
-                cliente.getNombre(),
-                cliente.getRut(),
-                cliente.getTelefono(),
-                cliente.getEmail(),
-                cliente.getTarjeta().getNivel(),
-                cliente.getTarjeta().getPuntosAcumulados()
-            });
+        try {
+            for (Cliente cliente : clienteControlador.listarClientes()) {
+                modeloTabla.addRow(new Object[]{
+                    cliente.getNombre(),
+                    cliente.getRut(),
+                    cliente.getTelefono(),
+                    cliente.getEmail(),
+                    cliente.getTarjeta().getNivel(),
+                    cliente.getTarjeta().getPuntosAcumulados()
+                });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los clientes desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
