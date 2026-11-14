@@ -1,6 +1,20 @@
 # PuntoGrano - Sistema de Gestión de Cafetería + Fidelización de clientes
 
-Proyecto académico EV2 CFTSA, que consiste en un punto de ventas + fidelización para cafeterías, desarrollado en Java utilizando patrón MVC. El sistema soluciona el problema que tienen muchas cafeterías que recién están comenzando donde registran todo a mano o en tablas Excel y otorgan a sus clientes tarjetas timbradas de fidelización que estos suelen perder.
+Proyecto académico EV2 y EV3 CFTSA, que consiste en un punto de ventas + fidelización para cafeterías, desarrollado en Java utilizando patrón MVC. El sistema soluciona el problema que tienen muchas cafeterías que recién están comenzando donde registran todo a mano o en tablas Excel y otorgan a sus clientes tarjetas timbradas de fidelización que estos suelen perder.
+
+---
+
+## Configuración de la Base de Datos
+
+El sistema utiliza persistencia de datos mediante MySQL y JDBC:
+
+- **Motor de Base de Datos:** MySQL Server (puerto `3306`).
+- **Nombre de la Base de Datos:** `puntograno`.
+- **Script SQL:** El archivo `PuntoGrano.sql` (en la carpeta database del proyecto) contiene las instrucciones para crear la base de datos, tablas, llaves foráneas y datos de prueba.
+- **Parámetros de Conexión:** Ubicados en `src/main/java/puntograno/conexion/ConexionBD.java`:
+  - **URL:** `jdbc:mysql://localhost:3306/puntograno`
+  - **Usuario:** `root`
+  - **Contraseña:** `Analista123.` *(clave generica, se debe ajustar según la configuración local si es necesario)*.
 
 ---
 
