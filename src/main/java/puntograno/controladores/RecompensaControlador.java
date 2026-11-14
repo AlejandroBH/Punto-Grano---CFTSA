@@ -69,19 +69,24 @@ public class RecompensaControlador {
         return eliminado;
     }
 
-    public void canjearRecompensa(Cliente cliente, Recompensa recompensa) {
-        cliente.getTarjeta().canjearPuntos(recompensa.getCostoPuntos());
+    public boolean canjearRecompensa(Cliente cliente, Recompensa recompensa) throws SQLException {
+        boolean canjeado = recompensaDAO.canjearRecompensa(cliente, recompensa);
 
-        // Si la recompensa existe actualiza el stock (descuenta -1)
-        if (recompensa.getProducto() != null) {
-            Producto producto = recompensa.getProducto();
-            producto.setStock(producto.getStock() - 1);
+        if (canjeado) {
+            cliente.getTarjeta().canjearPuntos(recompensa.getCostoPuntos());
 
-            // con esto impido que el stock baje de cero y hago que actualice el estado de disponibilidad automaticamente
-            if (producto.getStock() <= 0) {
-                producto.setStock(0);
-                producto.setDisponible(false);
+            // Si la recompensa existe actualiza el stock (descuenta -1)
+            if (recompensa.getProducto() != null) {
+                Producto producto = recompensa.getProducto();
+                producto.setStock(producto.getStock() - 1);
+
+                // con esto impido que el stock baje de cero y hago que actualice el estado de disponibilidad automaticamente
+                if (producto.getStock() <= 0) {
+                    producto.setStock(0);
+                    producto.setDisponible(false);
+                }
             }
         }
+        return canjeado;
     }
 }

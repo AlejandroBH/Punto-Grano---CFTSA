@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 import puntograno.conexion.ConexionBD;
+import puntograno.modelos.Cliente;
 import puntograno.modelos.Producto;
 import puntograno.modelos.Recompensa;
 
@@ -101,6 +102,40 @@ public class RecompensaDAO {
 
             int filasEliminadas = consulta.executeUpdate();
             return filasEliminadas == 1;
+        }
+    }
+
+    public boolean canjearRecompensa(Cliente cliente, Recompensa recompensa) throws SQLException {
+        String sqlTarjeta = "UPDATE tarjeta_fidelidad SET puntos_acumulados = puntos_acumulados - ? WHERE id_cliente = ?";
+        String sqlProducto = "UPDATE producto SET stock = stock - 1 WHERE id_producto = ?";
+
+        try (Connection conexion = ConexionBD.conectar()) {
+            conexion.setAutoCommit(false); // Transacción controlada
+
+            try (
+                    PreparedStatement consultaTarjeta = conexion.prepareStatement(sqlTarjeta);
+                    PreparedStatement consultaProducto = conexion.prepareStatement(sqlProducto)) {
+
+                // 1. Descontamos los puntos de la tarjeta del cliente
+                consultaTarjeta.setInt(1, recompensa.getCostoPuntos());
+                consultaTarjeta.setString(2, cliente.getIdUsuario());
+                int filasTarjeta = consultaTarjeta.executeUpdate();
+
+                // 2. Descontamos 1 unidad del stock del producto canjeado
+                consultaProducto.setString(1, recompensa.getProducto().getCodigo().toString());
+                int filasProducto = consultaProducto.executeUpdate();
+
+                if (filasTarjeta == 1 && filasProducto == 1) {
+                    conexion.commit(); // Confirmamos transaccion
+                    return true;
+                } else {
+                    conexion.rollback(); // Revertimos si falla
+                    return false;
+                }
+            } catch (SQLException ex) {
+                conexion.rollback(); // Revertimos ante cualquier error
+                throw ex;
+            }
         }
     }
 }
