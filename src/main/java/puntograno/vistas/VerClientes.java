@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import puntograno.controladores.ClienteControlador;
@@ -21,18 +22,22 @@ public class VerClientes extends JInternalFrame {
     private JButton btnModificarCliente;
     private JButton btnEliminarCliente;
 
-    private void cargarClientes() {
+    public void cargarClientes() {
         modeloTabla.setRowCount(0);
 
-        for (Cliente cliente : clienteControlador.getClientes()) {
-            modeloTabla.addRow(new Object[]{
-                cliente.getNombre(),
-                cliente.getRut(),
-                cliente.getTelefono(),
-                cliente.getEmail(),
-                cliente.getTarjeta().getNivel(),
-                cliente.getTarjeta().getPuntosAcumulados()
-            });
+        try {
+            for (Cliente cliente : clienteControlador.listarClientes()) {
+                modeloTabla.addRow(new Object[]{
+                    cliente.getNombre(),
+                    cliente.getRut(),
+                    cliente.getTelefono(),
+                    cliente.getEmail(),
+                    cliente.getTarjeta().getNivel(),
+                    cliente.getTarjeta().getPuntosAcumulados()
+                });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los clientes desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -102,7 +107,7 @@ public class VerClientes extends JInternalFrame {
 
             Cliente clienteSeleccionado = clienteControlador.obtenerCliente(filaSeleccionada);
 
-            ModificarCliente modificarCliente = new ModificarCliente(clienteControlador, clienteSeleccionado);
+            ModificarCliente modificarCliente = new ModificarCliente(clienteControlador, clienteSeleccionado, this);
             modificarCliente.setVisible(true);
         });
 
@@ -127,9 +132,29 @@ public class VerClientes extends JInternalFrame {
             }
 
             Cliente clienteSeleccionado = clienteControlador.obtenerCliente(filaSeleccionada);
-            clienteControlador.eliminarCliente(clienteSeleccionado);
-            JOptionPane.showMessageDialog(this, "Cliente " + clienteSeleccionado.getNombre() + " eliminado correctamente");
-            setVisible(false);
+
+            int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro quieres eliminar al cliente: " + clienteSeleccionado.getNombre() + "?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            try {
+                boolean eliminado = clienteControlador.eliminarCliente(clienteSeleccionado);
+
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "Cliente " + clienteSeleccionado.getNombre() + " eliminado correctamente");
+                    cargarClientes();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                if (ex.getErrorCode() == 1451) {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar al cliente porque registra pedidos en el historial.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al eliminar de la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
 
         panel.add(lblTitulo);

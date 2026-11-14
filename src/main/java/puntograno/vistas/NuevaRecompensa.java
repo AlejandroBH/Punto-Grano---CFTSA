@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import puntograno.controladores.ProductoControlador;
@@ -138,7 +139,18 @@ public class NuevaRecompensa extends JFrame {
             Producto producto = listaProductos.get(idProducto);
 
             Recompensa recompensa = new Recompensa(producto, costoPuntos, disponible);
-            recompensaControlador.registrarRecompensa(recompensa);
+
+            try {
+                recompensaControlador.registrarRecompensa(recompensa);
+            } catch (SQLException ex) {
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(this, "El producto: " + producto.getNombre() + " ya está asignado a otra recompensa", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                return;
+            }
+
             JOptionPane.showMessageDialog(this, "Recompensa " + recompensa.getPremio() + " registrada correctamente");
             setVisible(false);
         });

@@ -20,6 +20,10 @@ public class Recompensa {
         return idRecompensa;
     }
 
+    public void setIdRecompensa(UUID idRecompensa) {
+        this.idRecompensa = idRecompensa;
+    }
+
     public String getPremio() {
         return premio.getNombre();
     }

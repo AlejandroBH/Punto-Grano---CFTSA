@@ -8,6 +8,8 @@ puntograno\vistas\ModificarRecompensa.class
 puntograno\vistas\NuevoCliente.class
 puntograno\vistas\VerRecompensas.class
 puntograno\vistas\ModificarProducto.class
+puntograno\dao\ProductoDAO.class
+puntograno\dao\PedidoDAO.class
 puntograno\modelos\Producto.class
 puntograno\modelos\TarjetaFidelidad.class
 puntograno\conexion\ConexionBD.class
@@ -16,6 +18,7 @@ puntograno\controladores\ProductoControlador.class
 puntograno\vistas\VistaLogin.class
 puntograno\vistas\ModificarCliente.class
 puntograno\dao\ClienteDAO.class
+puntograno\dao\RecompensaDAO.class
 puntograno\vistas\VerProductos.class
 puntograno\modelos\Administrador.class
 puntograno\vistas\VistaPrincipal.class

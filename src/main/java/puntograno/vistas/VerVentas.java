@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import puntograno.controladores.PedidoControlador;
@@ -21,16 +22,20 @@ public class VerVentas extends JInternalFrame {
     private JButton btnProcesarPedido;
     private JButton btnEntregarPedido;
 
-    private void cargarVentas() {
+    public void cargarVentas() {
         modeloTabla.setRowCount(0);
 
-        for (Pedido pedido : pedidoControlador.getPedidos()) {
-            modeloTabla.addRow(new Object[]{
-                pedido.getCliente().getNombre(),
-                pedido.getEstado(),
-                pedido.mostrarProductos().size(),
-                "$ " + pedido.calcularTotal()
-            });
+        try {
+            for (Pedido pedido : pedidoControlador.listarPedidos()) {
+                modeloTabla.addRow(new Object[]{
+                    pedido.getCliente().getNombre(),
+                    pedido.getEstado(),
+                    pedido.mostrarProductos().size(),
+                    "$ " + pedido.calcularTotal()
+                });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar las ventas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -103,9 +108,13 @@ public class VerVentas extends JInternalFrame {
                 return;
             }
 
-            pedidoControlador.procesarPedido(pedidoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Pedido listo para entregarse");
-            setVisible(false);
+            try {
+                pedidoControlador.procesarPedido(pedidoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Pedido listo para entregarse");
+                cargarVentas();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al procesar el pedido en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         btnEntregarPedido = new JButton("Entregar Pedido");
@@ -135,9 +144,13 @@ public class VerVentas extends JInternalFrame {
                 return;
             }
 
-            pedidoControlador.finalizarPedido(pedidoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Pedido entregado");
-            setVisible(false);
+            try {
+                pedidoControlador.finalizarPedido(pedidoSeleccionado);
+                JOptionPane.showMessageDialog(this, "Pedido entregado");
+                cargarVentas();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al entregar el pedido en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         panel.add(lblTitulo);

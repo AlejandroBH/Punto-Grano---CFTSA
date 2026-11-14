@@ -24,6 +24,10 @@ public class Producto {
         return codigo;
     }
 
+    public void setCodigo(UUID codigo) {
+        this.codigo = codigo;
+    }
+
     public String getNombre() {
         return nombre;
     }

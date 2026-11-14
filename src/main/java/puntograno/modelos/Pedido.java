@@ -24,8 +24,16 @@ public class Pedido {
         return idPedido;
     }
 
+    public void setIdPedido(UUID idPedido) {
+        this.idPedido = idPedido;
+    }
+
     public Date getFechaPedido() {
         return fechaPedido;
+    }
+
+    public void setFechaPedido(Date fechaPedido) {
+        this.fechaPedido = fechaPedido;
     }
 
     public String getEstado() {

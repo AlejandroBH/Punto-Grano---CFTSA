@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import puntograno.controladores.ClienteControlador;
@@ -29,17 +30,26 @@ public class CanjearPuntos extends JFrame {
         listaRecompensas = new ArrayList<>();
         comRecompensa.removeAllItems();
 
-        for (Recompensa recompensa : recompensaControlador.getRecompensas()) {
-            if (recompensa.isDisponible()) {
-                listaRecompensas.add(recompensa);
-                comRecompensa.addItem(recompensa.getPremio() + " (" + recompensa.getCostoPuntos() + " puntos)");
+        try {
+            for (Recompensa recompensa : recompensaControlador.listarRecompensas()) {
+                if (recompensa.isDisponible()) {
+                    listaRecompensas.add(recompensa);
+                    comRecompensa.addItem(recompensa.getPremio() + " (" + recompensa.getCostoPuntos() + " puntos)");
+                }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar recompensas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void cargarClientes() {
-        for (Cliente cliente : clienteControlador.getClientes()) {
-            comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
+        comCliente.removeAllItems();
+        try {
+            for (Cliente cliente : clienteControlador.listarClientes()) {
+                comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -126,9 +136,17 @@ public class CanjearPuntos extends JFrame {
                 return;
             }
 
-            recompensaControlador.canjearRecompensa(clienteEncontrado, recompensaSeleccionada);
-            JOptionPane.showMessageDialog(this, "Puntos canjeados correctamente por: " + clienteEncontrado.getNombre());
-            setVisible(false);
+            try {
+                boolean canjeado = recompensaControlador.canjearRecompensa(clienteEncontrado, recompensaSeleccionada);
+                if (canjeado) {
+                    JOptionPane.showMessageDialog(this, "Puntos canjeados correctamente por: " + clienteEncontrado.getNombre());
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo realizar el canje en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al canjear puntos en la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         panel.add(lblTitulo);

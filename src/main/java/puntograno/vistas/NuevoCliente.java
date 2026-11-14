@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import puntograno.controladores.ClienteControlador;
 import puntograno.modelos.Cliente;
@@ -136,7 +137,17 @@ public class NuevoCliente extends JFrame {
             }
 
             Cliente cliente = new Cliente(rut, nombre, telefono, email);
-            clienteControlador.registrarCliente(cliente);
+
+            try {
+                clienteControlador.registrarCliente(cliente);
+            } catch (SQLException ex) {
+                // Si hay error de duplicidad de rut arroja alerta
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(this, "Ya existe un cliente registrado con el rut: " + rut, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
             JOptionPane.showMessageDialog(this, "Cliente " + nombre + " registrado correctamente");
             setVisible(false);
         });

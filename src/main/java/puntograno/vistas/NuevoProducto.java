@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import puntograno.controladores.ProductoControlador;
 import puntograno.modelos.Producto;
@@ -154,7 +155,13 @@ public class NuevoProducto extends JFrame {
             }
 
             Producto nuevoProducto = new Producto(nombre, categoria, precio, stock, disponible);
-            productoControlador.registrarProducto(nuevoProducto);
+
+            try {
+                productoControlador.registrarProducto(nuevoProducto);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el producto en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             JOptionPane.showMessageDialog(this, "Producto " + nombre + " registrado correctamente");
             setVisible(false);
