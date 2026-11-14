@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -219,7 +220,13 @@ public class NuevaVenta extends JFrame {
 
             Pedido nuevoPedido = new Pedido(clienteEncontrado);
             pedidoControlador.agregarCarritoPedido(nuevoPedido, carritoControlador.getCarrito());
-            pedidoControlador.registrarPedido(nuevoPedido);
+
+            try {
+                pedidoControlador.registrarPedido(nuevoPedido);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al registrar la venta en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             JOptionPane.showMessageDialog(this, "Pedido creado correctamente a cliente: " + nuevoPedido.getCliente().getNombre());
             setVisible(false);
