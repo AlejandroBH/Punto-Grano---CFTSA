@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import puntograno.controladores.ProductoControlador;
@@ -14,6 +15,8 @@ public class ModificarRecompensa extends JFrame {
 
     private RecompensaControlador recompensaControlador;
     private ProductoControlador productoControlador;
+    private Recompensa recompensa;
+    private VerRecompensas verRecompensas;
 
     private ArrayList<Producto> listaProductos;
 
@@ -39,9 +42,11 @@ public class ModificarRecompensa extends JFrame {
         }
     }
 
-    public ModificarRecompensa(RecompensaControlador recompensaControlador, ProductoControlador productoControlador, Recompensa recompensa) {
+    public ModificarRecompensa(RecompensaControlador recompensaControlador, ProductoControlador productoControlador, Recompensa recompensa, VerRecompensas verRecompensas) {
         this.recompensaControlador = recompensaControlador;
         this.productoControlador = productoControlador;
+        this.recompensa = recompensa;
+        this.verRecompensas = verRecompensas;
 
         setTitle("Modificar Recompensa");
         setSize(500, 350);
@@ -139,8 +144,27 @@ public class ModificarRecompensa extends JFrame {
 
             recompensaControlador.editarRecompensa(recompensa, producto, premio, costoPuntos, disponible);
 
-            JOptionPane.showMessageDialog(this, "Recompensa " + recompensa.getPremio() + " registrada correctamente");
-            setVisible(false);
+            try {
+                boolean actualizado = recompensaControlador.actualizarRecompensa(recompensa);
+
+                if (actualizado) {
+                    JOptionPane.showMessageDialog(this, "Recompensa " + recompensa.getPremio() + " modificada correctamente");
+                    if (verRecompensas != null) {
+                        verRecompensas.cargarRecompensas();
+                    }
+
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo actualizar la recompensa en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(this, "El producto: " + producto.getNombre() + " ya está asignado a otra recompensa", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
 
         panel.add(lblTitulo);

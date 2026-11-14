@@ -1,6 +1,8 @@
 package puntograno.controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import puntograno.dao.RecompensaDAO;
 import puntograno.modelos.Cliente;
 import puntograno.modelos.Producto;
 import puntograno.modelos.Recompensa;
@@ -8,9 +10,11 @@ import puntograno.modelos.Recompensa;
 public class RecompensaControlador {
 
     private ArrayList<Recompensa> recompesas;
+    private RecompensaDAO recompensaDAO;
 
     public RecompensaControlador() {
         recompesas = new ArrayList<>();
+        recompensaDAO = new RecompensaDAO();
     }
 
     // solo para pruebas
@@ -24,16 +28,30 @@ public class RecompensaControlador {
         recompesas.add(recompensa3);
     }
 
-    public void registrarRecompensa(Recompensa recompensa) {
-        recompesas.add(recompensa);
+    public boolean registrarRecompensa(Recompensa recompensa) throws SQLException {
+        boolean registrado = recompensaDAO.registrarRecompensa(recompensa);
+
+        if (registrado) {
+            recompesas.add(recompensa);
+        }
+        return registrado;
     }
 
     public ArrayList<Recompensa> getRecompensas() {
         return recompesas;
     }
 
+    public ArrayList<Recompensa> listarRecompensas() throws SQLException {
+        this.recompesas = recompensaDAO.listarRecompensas();
+        return this.recompesas;
+    }
+
     public Recompensa obtenerRecompensa(int idRecompensa) {
         return recompesas.get(idRecompensa);
+    }
+
+    public boolean actualizarRecompensa(Recompensa recompensa) throws SQLException {
+        return recompensaDAO.actualizarRecompensa(recompensa);
     }
 
     public void editarRecompensa(Recompensa recompensa, Producto producto, String premio, int costoPuntos, Boolean disponible) {
@@ -42,8 +60,13 @@ public class RecompensaControlador {
         recompensa.setDisponible(disponible);
     }
 
-    public void eliminarRecompensa(Recompensa recompensa) {
-        this.recompesas.remove(recompensa);
+    public boolean eliminarRecompensa(Recompensa recompensa) throws SQLException {
+        boolean eliminado = recompensaDAO.eliminarRecompensa(recompensa.getIdRecompensa().toString());
+
+        if (eliminado) {
+            this.recompesas.remove(recompensa);
+        }
+        return eliminado;
     }
 
     public void canjearRecompensa(Cliente cliente, Recompensa recompensa) {

@@ -17,6 +17,7 @@ puntograno\controladores\ProductoControlador.class
 puntograno\vistas\VistaLogin.class
 puntograno\vistas\ModificarCliente.class
 puntograno\dao\ClienteDAO.class
+puntograno\dao\RecompensaDAO.class
 puntograno\vistas\VerProductos.class
 puntograno\modelos\Administrador.class
 puntograno\vistas\VistaPrincipal.class

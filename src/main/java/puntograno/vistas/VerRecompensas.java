@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import puntograno.controladores.ProductoControlador;
@@ -23,17 +24,21 @@ public class VerRecompensas extends JInternalFrame {
     private JButton btnModificarRecompensa;
     private JButton btnEliminarRecompensa;
 
-    private void cargarRecompensas() {
+    public void cargarRecompensas() {
         modeloTabla.setRowCount(0);
 
-        for (Recompensa recompensa : recompensaControlador.getRecompensas()) {
-            String disponible = recompensa.isDisponible() ? "SI" : "NO"; // formatea condicion booleana a string con operador ternario
+        try {
+            for (Recompensa recompensa : recompensaControlador.listarRecompensas()) {
+                String disponible = recompensa.isDisponible() ? "SI" : "NO"; // formatea condicion booleana a string con operador ternario
 
-            modeloTabla.addRow(new Object[]{
-                recompensa.getPremio(),
-                recompensa.getCostoPuntos(),
-                disponible
-            });
+                modeloTabla.addRow(new Object[]{
+                    recompensa.getPremio(),
+                    recompensa.getCostoPuntos(),
+                    disponible
+                });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los recompensas desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -101,7 +106,7 @@ public class VerRecompensas extends JInternalFrame {
 
             Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(filaSeleccionada);
 
-            ModificarRecompensa modificarRecompensa = new ModificarRecompensa(recompensaControlador, productoControlador, recompensaSeleccionada);
+            ModificarRecompensa modificarRecompensa = new ModificarRecompensa(recompensaControlador, productoControlador, recompensaSeleccionada, this);
             modificarRecompensa.setVisible(true);
         });
 
@@ -126,9 +131,25 @@ public class VerRecompensas extends JInternalFrame {
             }
 
             Recompensa recompensaSeleccionada = recompensaControlador.obtenerRecompensa(filaSeleccionada);
-            recompensaControlador.eliminarRecompensa(recompensaSeleccionada);
-            JOptionPane.showMessageDialog(this, "Recompensa " + recompensaSeleccionada.getPremio() + " eliminada correctamente");
-            setVisible(false);
+
+            int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro quieres eliminar la recompensa: " + recompensaSeleccionada.getPremio() + "?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            try {
+                boolean eliminado = recompensaControlador.eliminarRecompensa(recompensaSeleccionada);
+
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "Recompensa " + recompensaSeleccionada.getPremio() + " eliminada correctamente");
+                    cargarRecompensas();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar la recompensa de la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar en la base de datos" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         panel.add(lblTitulo);
