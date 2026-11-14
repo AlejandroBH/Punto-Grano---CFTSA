@@ -107,7 +107,7 @@ public class VerClientes extends JInternalFrame {
 
             Cliente clienteSeleccionado = clienteControlador.obtenerCliente(filaSeleccionada);
 
-            ModificarCliente modificarCliente = new ModificarCliente(clienteControlador, clienteSeleccionado);
+            ModificarCliente modificarCliente = new ModificarCliente(clienteControlador, clienteSeleccionado, this);
             modificarCliente.setVisible(true);
         });
 

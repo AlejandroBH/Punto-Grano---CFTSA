@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import puntograno.controladores.ClienteControlador;
 import puntograno.modelos.Cliente;
@@ -10,6 +11,8 @@ import puntograno.modelos.Cliente;
 public class ModificarCliente extends JFrame {
 
     private ClienteControlador clienteControlador;
+    private Cliente cliente;
+    private VerClientes verClientes;
 
     private JPanel panel;
     private JLabel lblTitulo;
@@ -23,8 +26,10 @@ public class ModificarCliente extends JFrame {
     private JTextField txtEmail;
     private JButton btnModificar;
 
-    public ModificarCliente(ClienteControlador clienteControlador, Cliente cliente) {
+    public ModificarCliente(ClienteControlador clienteControlador, Cliente cliente, VerClientes verClientes) {
         this.clienteControlador = clienteControlador;
+        this.cliente = cliente;
+        this.verClientes = verClientes;
 
         setTitle("Modificar Cliente");
         setSize(500, 400);
@@ -141,9 +146,28 @@ public class ModificarCliente extends JFrame {
                 return;
             }
 
-            clienteControlador.editarCliente(cliente, rut, nombre, telefono, email);
-            JOptionPane.showMessageDialog(this, "Cliente " + nombre + " modificado correctamente");
-            setVisible(false);
+            cliente.setRut(rut);
+            cliente.setNombre(nombre);
+            cliente.setTelefono(telefono);
+            cliente.setEmail(email);
+
+            try {
+                boolean actualizado = clienteControlador.editarCliente(cliente);
+
+                if (actualizado) {
+                    JOptionPane.showMessageDialog(this, "Cliente " + nombre + " modificado correctamente");
+                    if (verClientes != null) {
+                        verClientes.cargarClientes();
+                    }
+
+                    setVisible(false);
+                }
+            } catch (SQLException ex) {
+
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(this, "Ya existe un cliente registrado con el rut: " + rut, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
 
         panel.add(lblTitulo);

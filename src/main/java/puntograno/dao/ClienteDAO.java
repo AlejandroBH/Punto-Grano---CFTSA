@@ -62,7 +62,7 @@ public class ClienteDAO {
         String sql = "SELECT cliente.id_cliente, cliente.rut_cliente, cliente.nombre, cliente.telefono, cliente.email, tarjeta_fidelidad.puntos_acumulados "
                 + "FROM cliente "
                 + "INNER JOIN tarjeta_fidelidad ON tarjeta_fidelidad.id_cliente = cliente.id_cliente "
-                + "ORDER BY cliente.id_cliente";
+                + "ORDER BY cliente.fecha_registro ASC";
 
         try (
                 Connection conexion = ConexionBD.conectar();
@@ -85,5 +85,23 @@ public class ClienteDAO {
             }
         }
         return lista;
+    }
+
+    public boolean actualizarCliente(Cliente cliente) throws SQLException {
+        String sql = "UPDATE cliente SET rut_cliente = ?, nombre = ?, telefono = ?, email = ? WHERE id_cliente = ?";
+
+        try (
+                Connection conexion = ConexionBD.conectar();
+                PreparedStatement consulta = conexion.prepareStatement(sql)) {
+
+            consulta.setString(1, cliente.getRut());
+            consulta.setString(2, cliente.getNombre());
+            consulta.setString(3, cliente.getTelefono());
+            consulta.setString(4, cliente.getEmail());
+            consulta.setString(5, cliente.getIdUsuario());
+
+            int filasActualizadas = consulta.executeUpdate();
+            return filasActualizadas == 1;
+        }
     }
 }
