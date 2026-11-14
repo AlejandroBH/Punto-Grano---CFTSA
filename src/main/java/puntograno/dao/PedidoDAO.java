@@ -157,17 +157,39 @@ public class PedidoDAO {
     }
 
     public boolean actualizarEstadoPedido(Pedido pedido) throws SQLException {
-        String sql = "UPDATE pedido SET estado = ? WHERE id_pedido = ?";
+        String sqlPedido = "UPDATE pedido SET estado = ? WHERE id_pedido = ?";
+        String sqlTarjeta = "UPDATE tarjeta_fidelidad SET puntos_acumulados = ? WHERE id_cliente = ?";
 
-        try (
-                Connection conexion = ConexionBD.conectar();
-                PreparedStatement consulta = conexion.prepareStatement(sql)) {
+        try (Connection conexion = ConexionBD.conectar()) {
+            conexion.setAutoCommit(false);
 
-            consulta.setString(1, pedido.getEstado());
-            consulta.setString(2, pedido.getIdPedido().toString());
+            try (
+                    PreparedStatement consultaPedido = conexion.prepareStatement(sqlPedido);
+                    PreparedStatement consultaTarjeta = conexion.prepareStatement(sqlTarjeta)) {
 
-            int filasActualizadas = consulta.executeUpdate();
-            return filasActualizadas == 1;
+                // 1. Actualizamos el estado del pedido
+                consultaPedido.setString(1, pedido.getEstado());
+                consultaPedido.setString(2, pedido.getIdPedido().toString());
+                int filasPedido = consultaPedido.executeUpdate();
+
+                // 2. Si el pedido tiene un cliente con tarjeta actualizamos los puntos acumulados
+                if (pedido.getCliente() != null && pedido.getCliente().getIdUsuario() != null) {
+                    consultaTarjeta.setInt(1, pedido.getCliente().getTarjeta().getPuntosAcumulados());
+                    consultaTarjeta.setString(2, pedido.getCliente().getIdUsuario());
+                    consultaTarjeta.executeUpdate();
+                }
+
+                if (filasPedido == 1) {
+                    conexion.commit(); // Confirmamos transaccion
+                    return true;
+                } else {
+                    conexion.rollback(); // Revertimos si falla
+                    return false;
+                }
+            } catch (SQLException ex) {
+                conexion.rollback(); // Revertimos ante cualquier error
+                throw ex;
+            }
         }
     }
 

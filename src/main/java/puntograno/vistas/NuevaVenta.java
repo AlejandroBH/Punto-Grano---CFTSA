@@ -41,17 +41,26 @@ public class NuevaVenta extends JFrame {
         listaProductos = new ArrayList<>();
         comProducto.removeAllItems();
 
-        for (Producto producto : productoControlador.getProductos()) {
-            if (producto.isDisponible() && producto.getStock() > 0) {
-                listaProductos.add(producto);
-                comProducto.addItem(producto.getNombre() + " (Stock: " + producto.getStock() + ")");
+        try {
+            for (Producto producto : productoControlador.listarProductos()) {
+                if (producto.isDisponible() && producto.getStock() > 0) {
+                    listaProductos.add(producto);
+                    comProducto.addItem(producto.getNombre() + " (Stock: " + producto.getStock() + ")");
+                }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar productos desde la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void cargarClientes() {
-        for (Cliente cliente : clienteControlador.getClientes()) {
-            comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
+        comCliente.removeAllItems();
+        try {
+            for (Cliente cliente : clienteControlador.listarClientes()) {
+                comCliente.addItem(cliente.getNombre() + " (" + cliente.getRut() + ")");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar clientes desde la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

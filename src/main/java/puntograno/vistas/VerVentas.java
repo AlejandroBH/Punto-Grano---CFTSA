@@ -109,8 +109,17 @@ public class VerVentas extends JInternalFrame {
             }
 
             try {
+                int total = pedidoSeleccionado.calcularTotal();
+                int puntosGanados = (total >= 10000) ? (total / 10000) * 50 : 0;
+
                 pedidoControlador.procesarPedido(pedidoSeleccionado);
-                JOptionPane.showMessageDialog(this, "Pedido listo para entregarse");
+
+                if (puntosGanados > 0) {
+                    JOptionPane.showMessageDialog(this, "Pedido procesado (Listo para retiro).\n¡Se han sumado " + puntosGanados + " puntos al cliente " + pedidoSeleccionado.getCliente().getNombre() + "!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Pedido procesado (Listo para retiro).\n(Compra menor a $10.000, no acumula puntos)");
+                }
+
                 cargarVentas();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Error al procesar el pedido en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
