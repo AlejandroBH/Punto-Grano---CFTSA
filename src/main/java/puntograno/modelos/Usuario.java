@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Usuario {
 
-    private UUID idUsuario;
+    private String idUsuario;
     private String rut;
     private String nombre;
     private String telefono;
@@ -13,7 +13,7 @@ public class Usuario {
     private Date fechaRegistro;
 
     public Usuario(String rut, String nombre, String telefono, String email) {
-        this.idUsuario = UUID.randomUUID();
+        //this.idUsuario = UUID.randomUUID();
         this.rut = rut;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -21,11 +21,11 @@ public class Usuario {
         this.fechaRegistro = new Date();
     }
 
-    public UUID getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 

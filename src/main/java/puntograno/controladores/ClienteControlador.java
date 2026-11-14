@@ -1,14 +1,18 @@
 package puntograno.controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import puntograno.dao.ClienteDAO;
 import puntograno.modelos.Cliente;
 
 public class ClienteControlador {
 
     private ArrayList<Cliente> clientes;
+    private ClienteDAO clienteDAO;
 
     public ClienteControlador() {
         clientes = new ArrayList<>();
+        clienteDAO = new ClienteDAO();
     }
 
     // solo para pruebas
@@ -24,8 +28,13 @@ public class ClienteControlador {
         clientes.add(cliente4);
     }
 
-    public void registrarCliente(Cliente cliente) {
-        clientes.add(cliente);
+    public boolean registrarCliente(Cliente cliente) throws SQLException {
+        boolean registrado = clienteDAO.registrarCliente(cliente);
+
+        if (registrado) {
+            clientes.add(cliente);
+        }
+        return registrado;
     }
 
     public ArrayList<Cliente> getClientes() {
