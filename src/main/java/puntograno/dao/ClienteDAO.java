@@ -104,4 +104,34 @@ public class ClienteDAO {
             return filasActualizadas == 1;
         }
     }
+
+    public boolean eliminarCliente(String idCliente) throws SQLException {
+        String sqlTarjeta = "DELETE FROM tarjeta_fidelidad WHERE id_cliente = ?";
+        String sqlCliente = "DELETE FROM cliente WHERE id_cliente = ?";
+
+        try (
+                Connection conexion = ConexionBD.conectar();) {
+            conexion.setAutoCommit(false);
+
+            try (
+                    PreparedStatement eliminarTarjeta = conexion.prepareStatement(sqlTarjeta);
+                    PreparedStatement eliminarCliente = conexion.prepareStatement(sqlCliente);) {
+                eliminarTarjeta.setString(1, idCliente);
+                eliminarTarjeta.executeUpdate();
+                eliminarCliente.setString(1, idCliente);
+
+                int filasEliminadas = eliminarCliente.executeUpdate();
+
+                if (filasEliminadas == 1) {
+                    conexion.commit();
+                    return true;
+                }
+                conexion.rollback();
+                return false;
+            } catch (SQLException ex) {
+                conexion.rollback();
+                throw ex;
+            }
+        }
+    }
 }

@@ -63,7 +63,12 @@ public class ClienteControlador {
         return clienteDAO.actualizarCliente(cliente);
     }
 
-    public void eliminarCliente(Cliente cliente) {
-        this.clientes.remove(cliente);
+    public boolean eliminarCliente(Cliente cliente) throws SQLException {
+        boolean eliminado = clienteDAO.eliminarCliente(cliente.getIdUsuario());
+
+        if (eliminado) {
+            this.clientes.remove(cliente);
+        }
+        return eliminado;
     }
 }
