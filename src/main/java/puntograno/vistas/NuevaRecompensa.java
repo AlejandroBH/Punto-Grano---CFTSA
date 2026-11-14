@@ -30,13 +30,17 @@ public class NuevaRecompensa extends JFrame {
 
     private void cargarProductos() {
         listaProductos = new ArrayList<>();
-
         comPremio.removeAllItems();
-        for (Producto producto : productoControlador.getProductos()) {
-            if (producto.isDisponible()) {
-                listaProductos.add(producto);
-                comPremio.addItem(producto.getNombre());
+
+        try {
+            for (Producto producto : productoControlador.listarProductos()) {
+                if (producto.isDisponible()) {
+                    listaProductos.add(producto);
+                    comPremio.addItem(producto.getNombre());
+                }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar productos desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
