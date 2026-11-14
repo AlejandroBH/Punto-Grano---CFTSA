@@ -1,14 +1,18 @@
 package puntograno.controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import puntograno.dao.ProductoDAO;
 import puntograno.modelos.Producto;
 
 public class ProductoControlador {
 
     private ArrayList<Producto> productos;
+    private ProductoDAO productoDAO;
 
     public ProductoControlador() {
         productos = new ArrayList<>();
+        productoDAO = new ProductoDAO();
     }
 
     // solo para pruebas
@@ -30,16 +34,30 @@ public class ProductoControlador {
         productos.add(accesorio2);
     }
 
-    public void registrarProducto(Producto producto) {
-        productos.add(producto);
+    public boolean registrarProducto(Producto producto) throws SQLException {
+        boolean registrado = productoDAO.registrarProducto(producto);
+
+        if (registrado) {
+            productos.add(producto);
+        }
+        return registrado;
     }
 
     public ArrayList<Producto> getProductos() {
         return productos;
     }
 
+    public ArrayList<Producto> listarProductos() throws SQLException {
+        this.productos = productoDAO.listarProductos();
+        return this.productos;
+    }
+
     public Producto obtenerProducto(int idProducto) {
         return productos.get(idProducto);
+    }
+
+    public boolean actualizarProducto(Producto producto) throws SQLException {
+        return productoDAO.actualizarProducto(producto);
     }
 
     public void editarProducto(Producto producto, String nombre, int precio, int stock, String categoria, Boolean disponible) {
@@ -57,7 +75,11 @@ public class ProductoControlador {
         }
     }
 
-    public void eliminarProducto(Producto producto) {
-        this.productos.remove(producto);
+    public boolean eliminarProducto(Producto producto) throws SQLException {
+        boolean eliminado = productoDAO.eliminarProducto(producto.getCodigo().toString());
+        if (eliminado) {
+            this.productos.remove(producto);
+        }
+        return eliminado;
     }
 }

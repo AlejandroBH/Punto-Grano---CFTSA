@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import puntograno.controladores.ProductoControlador;
@@ -21,19 +22,23 @@ public class VerProductos extends JInternalFrame {
     private JButton btnModificarProducto;
     private JButton btnEliminarProducto;
 
-    private void cargarProductos() {
+    public void cargarProductos() {
         modeloTabla.setRowCount(0);
 
-        for (Producto producto : productoControlador.getProductos()) {
-            String disponible = producto.isDisponible() ? "SI" : "NO"; // formatea condicion booleana a string con operador ternario
+        try {
+            for (Producto producto : productoControlador.listarProductos()) {
+                String disponible = producto.isDisponible() ? "SI" : "NO"; // formatea condicion booleana a string con operador ternario
 
-            modeloTabla.addRow(new Object[]{
-                producto.getNombre(),
-                producto.getCategoria(),
-                "$ " + producto.getPrecio(),
-                producto.getStock(),
-                disponible
-            });
+                modeloTabla.addRow(new Object[]{
+                    producto.getNombre(),
+                    producto.getCategoria(),
+                    "$ " + producto.getPrecio(),
+                    producto.getStock(),
+                    disponible
+                });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los productos desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -102,7 +107,7 @@ public class VerProductos extends JInternalFrame {
 
             Producto productoSeleccionado = productoControlador.obtenerProducto(filaSeleccionada);
 
-            ModificarProducto modificarProducto = new ModificarProducto(productoControlador, productoSeleccionado);
+            ModificarProducto modificarProducto = new ModificarProducto(productoControlador, productoSeleccionado, this);
             modificarProducto.setVisible(true);
         });
 
@@ -127,9 +132,29 @@ public class VerProductos extends JInternalFrame {
             }
 
             Producto productoSeleccionado = productoControlador.obtenerProducto(filaSeleccionada);
-            productoControlador.eliminarProducto(productoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Producto " + productoSeleccionado.getNombre() + " eliminado correctamente");
-            setVisible(false);
+
+            int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro quieres eliminar el producto: " + productoSeleccionado.getNombre() + "?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (confirmacion != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            try {
+                boolean eliminado = productoControlador.eliminarProducto(productoSeleccionado);
+
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "Producto " + productoSeleccionado.getNombre() + " eliminado correctamente");
+                    cargarProductos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto de la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                if (ex.getErrorCode() == 1451) {
+                    JOptionPane.showMessageDialog(this, "No se puede eliminar el producto porque está asociado a pedidos o recompensas.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al eliminar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
 
         panel.add(lblTitulo);

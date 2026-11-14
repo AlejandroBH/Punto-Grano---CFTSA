@@ -3,6 +3,7 @@ package puntograno.vistas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.sql.SQLException;
 import javax.swing.*;
 import puntograno.controladores.ProductoControlador;
 import puntograno.modelos.Producto;
@@ -10,6 +11,8 @@ import puntograno.modelos.Producto;
 public class ModificarProducto extends JFrame {
 
     private ProductoControlador productoControlador;
+    private Producto producto;
+    private VerProductos verProductos;
 
     private String[] categorias = {"Productos", "Accesorios"};
 
@@ -27,8 +30,10 @@ public class ModificarProducto extends JFrame {
     private JCheckBox cheDisponible;
     private JButton btnModificar;
 
-    public ModificarProducto(ProductoControlador productoControlador, Producto producto) {
+    public ModificarProducto(ProductoControlador productoControlador, Producto producto, VerProductos verProductos) {
         this.productoControlador = productoControlador;
+        this.producto = producto;
+        this.verProductos = verProductos;
 
         setTitle("Modificar Producto");
         setSize(500, 450);
@@ -162,8 +167,22 @@ public class ModificarProducto extends JFrame {
 
             productoControlador.editarProducto(producto, nombre, precio, stock, categoria, disponible);
 
-            JOptionPane.showMessageDialog(this, "Producto " + nombre + " modificado correctamente");
-            setVisible(false);
+            try {
+                boolean actualizado = productoControlador.actualizarProducto(producto);
+
+                if (actualizado) {
+                    JOptionPane.showMessageDialog(this, "Producto " + nombre + " modificado correctamente");
+                    if (verProductos != null) {
+                        verProductos.cargarProductos();
+                    }
+
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo actualizar el producto en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error al actualizar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         panel.add(lblTitulo);
